@@ -13,6 +13,13 @@ public class DialogController : MonoBehaviour {
 
     private bool m_displayingUI = false;
 
+    private void Update()
+    {
+        if (m_displayingUI && Input.GetButtonDown("Jump"))
+            NextText();
+
+    }
+
     private void Start()
     {
         m_dialogText = GetComponentInChildren<TextMeshProUGUI>();
