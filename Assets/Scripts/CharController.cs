@@ -139,10 +139,11 @@ namespace LD43 {
 			isActive = false;
 		}
 
-		public void LayDead() {
+		public void LayDead(float layY) {
 			if (isDead) return;
 			CharactersManager.I.RemoveCharacter(this);
 			isDead = true;
+			transform.position = new Vector3(transform.position.x, layY, transform.position.z);
 			if (transform.localScale.x > 0) {
 				transform.rotation = Quaternion.Euler(0f, 0f, -90f);
 			} else {
