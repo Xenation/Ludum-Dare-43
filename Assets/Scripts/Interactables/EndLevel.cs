@@ -9,6 +9,8 @@ namespace LD43
     {
         [SerializeField] private List<GameObject> m_charactersReady;
 
+        private bool leaderSaved = false;
+
         private enum EndLevelState
         {
             NotReady = 0,
@@ -20,7 +22,7 @@ namespace LD43
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (!collision.CompareTag("Players"))
+            if (collision.gameObject.layer != LayerMask.NameToLayer("Character") && collision.gameObject.layer != LayerMask.NameToLayer("Movable"))
                 return;
 
             if (m_state < EndLevelState.Ready)
@@ -33,7 +35,7 @@ namespace LD43
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            if (!collision.CompareTag("Players"))
+            if (collision.gameObject.layer != LayerMask.NameToLayer("Character") && collision.gameObject.layer != LayerMask.NameToLayer("Movable"))
                 return;
 
             GameObject toDelete = m_charactersReady.FirstOrDefault(c => GameObject.ReferenceEquals(c, collision.gameObject));
@@ -55,17 +57,24 @@ namespace LD43
                 case EndLevelState.Ready:
                     if (Input.GetButtonDown("LeaderQuit"))
                     {
-                        m_state = EndLevelState.Quit;
+                        //m_state = EndLevelState.Quit;
 
-                        // TODO : hide the leader
-                        CharactersManager.I.GetCurrentController().gameObject.SetActive(false);
+                        // TODO : hide the character
+                        CharController currentController = CharactersManager.I.GetCurrentController();
+                        GameManager.SavePlayerType(currentController.PlayerType);
+
+                        if (currentController.PlayerType == PlayerTypesFlag.Leader)
+                            leaderSaved = true;
+
+                        currentController.gameObject.SetActive(false);
                     }
-                    break;
-                case EndLevelState.Quit:
-                    if (Input.GetButtonDown("Submit"))
+                    if (Input.GetButtonDown("Submit") && leaderSaved)
                     {
                         GameManager.NextLevel();
                     }
+                    break;
+                case EndLevelState.Quit:
+                    
                     break;
                 default:
                     break;

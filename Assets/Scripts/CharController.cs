@@ -12,6 +12,8 @@ namespace LD43 {
 		public float baseGravity = 2f;
 		public float fallGravity = 6f;
 
+        public PlayerTypesFlag PlayerType;
+
 		private bool isActive = false;
 		private bool inAir = true;
 		private bool pushing = false;
