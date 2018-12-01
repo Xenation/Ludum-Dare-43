@@ -1,17 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using LD43;
 
-public class Pike : MonoBehaviour
-{
-    [SerializeField] private List<string> m_activableTags = new List<string> { "Players" };
+public class Pike : MonoBehaviour {
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (m_activableTags.Contains(collision.collider.tag))
-        {
-            // TODO : kill the character
-        }
-    }
-    
+	private void OnTriggerEnter2D(Collider2D collision) {
+		CharController controller = collision.gameObject.GetComponent<CharController>();
+		if (controller != null) {
+			controller.LayDead();
+		}
+	}
+
 }

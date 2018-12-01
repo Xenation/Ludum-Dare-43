@@ -22,7 +22,7 @@ namespace LD43
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.gameObject.layer != LayerMask.NameToLayer("Character") && collision.gameObject.layer != LayerMask.NameToLayer("Movable"))
+            if (!collision.gameObject.GetComponent<CharController>())
                 return;
 
             if (m_state < EndLevelState.Ready)
@@ -35,7 +35,7 @@ namespace LD43
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            if (collision.gameObject.layer != LayerMask.NameToLayer("Character") && collision.gameObject.layer != LayerMask.NameToLayer("Movable"))
+            if (!collision.gameObject.GetComponent<CharController>())
                 return;
 
             GameObject toDelete = m_charactersReady.FirstOrDefault(c => GameObject.ReferenceEquals(c, collision.gameObject));

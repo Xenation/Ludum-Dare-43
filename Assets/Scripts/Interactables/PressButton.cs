@@ -1,23 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class PressButton : MonoBehaviour
+namespace LD43
 {
-
-    [SerializeField] private Activable m_activable;
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    public class PressButton : MonoBehaviour
     {
-        
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Character") || collision.gameObject.layer == LayerMask.NameToLayer("Movable"))
-            m_activable.Activate();
-    }
+        [SerializeField] private Activable m_activable;
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Character") || collision.gameObject.layer == LayerMask.NameToLayer("Movable"))
-            m_activable.Desactivate();
-    }
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.gameObject.GetComponent<CharController>())
+                m_activable.Activate();
+        }
 
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            if (collision.gameObject.GetComponent<CharController>())
+                m_activable.Desactivate();
+        }
+
+    } 
 }
