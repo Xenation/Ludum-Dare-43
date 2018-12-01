@@ -28,6 +28,7 @@ namespace LD43 {
 		public List<CharController> characters;
 
         [SerializeField] private List<Transform> m_startPositions = new List<Transform>();
+        [SerializeField] private AudioSource m_changeCharacterSound;
         private int activeCharacter = 0;
 
 
@@ -86,6 +87,9 @@ namespace LD43 {
 		}
 
 		public void NextCharacter() {
+            if (m_changeCharacterSound)
+                m_changeCharacterSound.Play();
+
 			characters[activeCharacter].Desactivate();
 			activeCharacter++;
 			activeCharacter = activeCharacter % characters.Count;
