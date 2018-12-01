@@ -8,10 +8,11 @@ namespace LD43 {
 
 		public float speed = 5f;
 		public float pushSpeed = 2f;
+		public float jumpForce = 12f;
 		public float baseGravity = 2f;
 		public float fallGravity = 6f;
 
-		private bool isActive = true;
+		private bool isActive = false;
 		private bool inAir = true;
 		private bool pushing = false;
 		private Rigidbody2D rb;
@@ -30,27 +31,31 @@ namespace LD43 {
 			pushZoneFilter.SetLayerMask(LayerMask.GetMask("Movable"));
 			landZone = transform.Find("LandZone").GetComponent<Collider2D>();
 			landZoneFilter = new ContactFilter2D();
+			landZoneFilter.SetLayerMask(~LayerMask.GetMask("Character"));
 		}
 
 		private void Update() {
-			if (!isActive) return;
-
-			// Input
-			velocity.x = Input.GetAxisRaw("Horizontal");
-			// Look Side
-			if (velocity.x > 0) {
-				transform.localScale = new Vector3(1f, 1f, 1f);
-			} else if (velocity.x < 0) {
-				transform.localScale = new Vector3(-1f, 1f, 1f);
-			}
-
-			// Pushable Object Check
 			Collider2D[] colliders = new Collider2D[4];
-			int colCount = pushZone.OverlapCollider(pushZoneFilter, colliders);
-			if (colCount == 0) { // no pushable
-				velocity.x *= speed;
-			} else { // pushable
-				velocity.x *= pushSpeed;
+			int colCount;
+			velocity.x = 0f;
+
+			if (isActive) {
+				// Input
+				velocity.x = Input.GetAxisRaw("Horizontal");
+				// Look Side
+				if (velocity.x > 0) {
+					transform.localScale = new Vector3(1f, 1f, 1f);
+				} else if (velocity.x < 0) {
+					transform.localScale = new Vector3(-1f, 1f, 1f);
+				}
+
+				// Pushable Object Check
+				colCount = pushZone.OverlapCollider(pushZoneFilter, colliders);
+				if (colCount == 0) { // no pushable
+					velocity.x *= speed;
+				} else { // pushable
+					velocity.x *= pushSpeed;
+				}
 			}
 
 			// Ground Check
@@ -62,9 +67,11 @@ namespace LD43 {
 				}
 			}
 
-			// Jump
-			if (Input.GetButtonDown("Jump") && !inAir) {
-				rb.AddForce(Vector2.up * 10f, ForceMode2D.Impulse);
+			if (isActive) {
+				// Jump
+				if (Input.GetButtonDown("Jump") && !inAir) {
+					rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+				}
 			}
 
 			// Gravity
@@ -78,6 +85,14 @@ namespace LD43 {
 		private void FixedUpdate() {
 			velocity.y = rb.velocity.y;
 			rb.velocity = velocity;
+		}
+
+		public void Activate() {
+			isActive = true;
+		}
+
+		public void Desactivate() {
+			isActive = false;
 		}
 
 	}
