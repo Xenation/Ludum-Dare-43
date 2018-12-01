@@ -1328,7 +1328,8 @@ MonoBehaviour:
   m_model: {fileID: 1756577342}
   m_startPosition: {fileID: 1757060396}
   m_endPosition: {fileID: 1819199919}
-  m_animTimeSeconds: 1
+  m_animOpenSeconds: 1
+  m_animCloseSeconds: 3
 --- !u!4 &1281856394
 Transform:
   m_ObjectHideFlags: 0
