@@ -8,8 +8,8 @@ public class Activable : MonoBehaviour {
     [SerializeField] private Transform m_endPosition;
     [SerializeField] private float m_animTimeSeconds = 1.0f;
 
-    private bool isMoving = false;
-    private bool isOpen = false;
+    private bool m_isMoving = false;
+    private bool m_isOpen = false;
 
     private float m_currentLerpRatio = 0.0f;
 
@@ -27,10 +27,10 @@ public class Activable : MonoBehaviour {
 
     IEnumerator AnimateActivable(float timeAnime, bool open)
     {
-        if (isMoving) // we change during anim
+        if (m_isMoving && open != m_isOpen) // we change during anim
             m_currentLerpRatio = 1 - m_currentLerpRatio;
 
-        isMoving = true;
+        m_isMoving = true;
         bool finishAnim = false;
 
         Vector3 start = open ? m_startPosition.position : m_endPosition.position;
@@ -47,8 +47,8 @@ public class Activable : MonoBehaviour {
         }
 
         m_currentLerpRatio = 0.0f;
-        isOpen = open;
-        isMoving = false;
+        m_isOpen = open;
+        m_isMoving = false;
         yield return null;
     }
 }
