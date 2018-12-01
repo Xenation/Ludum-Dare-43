@@ -19,7 +19,7 @@ namespace LD43 {
         Leader = 1,
         Small = 2,
         HighJump = 4,
-        SmallJump = 8,
+        FarJump = 8,
         Strong = 16
     }
 
@@ -51,9 +51,9 @@ namespace LD43 {
             {
                 characters.Add(PlayerFactory.CreatePlayer(PlayerTypesFlag.HighJump, m_startPositions[2].position).GetComponent<CharController>());
             }
-            if ((GameManager.PlayerTypesToSpawn & PlayerTypesFlag.SmallJump) == PlayerTypesFlag.SmallJump)
+            if ((GameManager.PlayerTypesToSpawn & PlayerTypesFlag.FarJump) == PlayerTypesFlag.FarJump)
             {
-                characters.Add(PlayerFactory.CreatePlayer(PlayerTypesFlag.SmallJump, m_startPositions[3].position).GetComponent<CharController>());
+                characters.Add(PlayerFactory.CreatePlayer(PlayerTypesFlag.FarJump, m_startPositions[3].position).GetComponent<CharController>());
             }
             if ((GameManager.PlayerTypesToSpawn & PlayerTypesFlag.Strong) == PlayerTypesFlag.Strong)
             {

@@ -54,9 +54,9 @@ namespace LD43
                     result = Instantiate(m_instance.m_prefabs.FirstOrDefault(p => p.Type == PlayerTypesFlag.HighJump).Prefab, position, Quaternion.identity);
                     result.GetComponent<CharController>().PlayerType = PlayerTypesFlag.HighJump;
                     break;
-                case PlayerTypesFlag.SmallJump:
-                    result = Instantiate(m_instance.m_prefabs.FirstOrDefault(p => p.Type == PlayerTypesFlag.SmallJump).Prefab, position, Quaternion.identity);
-                    result.GetComponent<CharController>().PlayerType = PlayerTypesFlag.SmallJump;
+                case PlayerTypesFlag.FarJump:
+                    result = Instantiate(m_instance.m_prefabs.FirstOrDefault(p => p.Type == PlayerTypesFlag.FarJump).Prefab, position, Quaternion.identity);
+                    result.GetComponent<CharController>().PlayerType = PlayerTypesFlag.FarJump;
                     break;
                 case PlayerTypesFlag.Strong:
                     result = Instantiate(m_instance.m_prefabs.FirstOrDefault(p => p.Type == PlayerTypesFlag.Strong).Prefab, position, Quaternion.identity);
