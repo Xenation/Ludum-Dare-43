@@ -20,6 +20,7 @@ namespace LD43 {
 		}
 
 		public void RemoveCharacter(CharController contr) {
+			if (!characters.Contains(contr)) return;
 			int remIndex = characters.IndexOf(contr);
 			characters.Remove(contr);
 			contr.Desactivate();

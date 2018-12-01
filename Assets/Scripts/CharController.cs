@@ -11,8 +11,10 @@ namespace LD43 {
 		public float jumpForce = 12f;
 		public float baseGravity = 2f;
 		public float fallGravity = 6f;
+		public PhysicsMaterial2D matDead;
 
 		private bool isActive = false;
+		private bool isDead = false;
 		private bool inAir = true;
 		private bool pushing = false;
 		private Rigidbody2D rb;
@@ -22,6 +24,10 @@ namespace LD43 {
 		private ContactFilter2D pushZoneFilter;
 		private Collider2D landZone;
 		private ContactFilter2D landZoneFilter;
+		private EdgeCollider2D platform;
+		private Transform layingPlatformLocation;
+		private float height = 0f;
+		private float width = 0f;
 
 		private void Awake() {
 			rb = GetComponent<Rigidbody2D>();
@@ -32,9 +38,14 @@ namespace LD43 {
 			landZone = transform.Find("LandZone").GetComponent<Collider2D>();
 			landZoneFilter = new ContactFilter2D();
 			landZoneFilter.SetLayerMask(~LayerMask.GetMask("Character"));
+			platform = transform.Find("Platform").GetComponent<EdgeCollider2D>();
+			layingPlatformLocation = transform.Find("LayingPlatformLocation");
+			height = col.bounds.extents.y * 2f;
+			width = col.bounds.extents.x * 2f;
 		}
 
 		private void Update() {
+			if (isDead) return;
 			Collider2D[] colliders = new Collider2D[4];
 			int colCount;
 			velocity.x = 0f;
@@ -83,6 +94,7 @@ namespace LD43 {
 		}
 
 		private void FixedUpdate() {
+			if (isDead) return;
 			velocity.y = rb.velocity.y;
 			rb.velocity = velocity;
 		}
@@ -92,7 +104,28 @@ namespace LD43 {
 		}
 
 		public void Desactivate() {
+			velocity.x = 0f;
 			isActive = false;
+		}
+
+		public void LayDead() {
+			if (isDead) return;
+			CharactersManager.I.RemoveCharacter(this);
+			isDead = true;
+			if (transform.localScale.x > 0) {
+				transform.rotation = Quaternion.Euler(0f, 0f, -90f);
+			} else {
+				transform.rotation = Quaternion.Euler(0f, 0f, 90f);
+			}
+			platform.transform.localPosition = Vector3.up * (height / 2f) + Vector3.left * (width / 2f);
+			platform.transform.rotation = Quaternion.identity;
+			Vector2[] pts = platform.points;
+			pts[0].x = -height / 2f;
+			pts[1].x = height / 2f;
+			platform.points = pts;
+			rb.bodyType = RigidbodyType2D.Static;
+			rb.sharedMaterial = matDead;
+			gameObject.layer = LayerMask.NameToLayer("DeadCharacter");
 		}
 
 	}
