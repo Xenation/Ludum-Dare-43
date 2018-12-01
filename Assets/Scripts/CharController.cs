@@ -37,21 +37,20 @@ namespace LD43 {
 
 			// Input
 			velocity.x = Input.GetAxisRaw("Horizontal");
-			// Pushable Object Check
-			Collider2D[] colliders = new Collider2D[4];
-			int colCount = pushZone.OverlapCollider(pushZoneFilter, colliders);
-			if (colCount == 0) { // no pushable
-				velocity.x *= speed;
-			}
-			else { // pushable
-				velocity.x *= pushSpeed;
-			}
-
 			// Look Side
 			if (velocity.x > 0) {
 				transform.localScale = new Vector3(1f, 1f, 1f);
 			} else if (velocity.x < 0) {
 				transform.localScale = new Vector3(-1f, 1f, 1f);
+			}
+
+			// Pushable Object Check
+			Collider2D[] colliders = new Collider2D[4];
+			int colCount = pushZone.OverlapCollider(pushZoneFilter, colliders);
+			if (colCount == 0) { // no pushable
+				velocity.x *= speed;
+			} else { // pushable
+				velocity.x *= pushSpeed;
 			}
 
 			// Ground Check
