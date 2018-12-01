@@ -297,7 +297,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  pushSpeed: 2
+  pushSpeed: 1
   baseGravity: 2
   fallGravity: 6
 --- !u!50 &563888313
