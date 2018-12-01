@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 50721972827803518}
   - component: {fileID: 114105620874816528}
   m_Layer: 10
-  m_Name: Character1
+  m_Name: Leader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -325,6 +325,7 @@ MonoBehaviour:
   baseGravity: 2
   fallGravity: 6
   matDead: {fileID: 6200000, guid: 69d25dfb975b8d0479d87d60fb8f7d25, type: 2}
+  PlayerType: 0
 --- !u!251 &251706708271365480
 PlatformEffector2D:
   m_ObjectHideFlags: 1

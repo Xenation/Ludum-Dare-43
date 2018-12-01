@@ -13,6 +13,8 @@ namespace LD43 {
 		public float jumpAirSpeed = 7f;
 		public PhysicsMaterial2D matDead;
 
+        public PlayerTypesFlag PlayerType;
+
 		private float gravity = 1f;
 		private float ascentGravity = 1f;
 		private float coastGravity = 1f;

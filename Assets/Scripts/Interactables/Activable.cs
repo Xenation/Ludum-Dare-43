@@ -7,14 +7,15 @@ public class Activable : MonoBehaviour
     [SerializeField] private Transform m_model;
     [SerializeField] private Transform m_startPosition;
     [SerializeField] private Transform m_endPosition;
-    [SerializeField] private float m_animTimeSeconds = 1.0f;
+    [SerializeField] private float m_animOpenSeconds = 1.0f;
+    [SerializeField] private float m_animCloseSeconds = 3.0f;
 
     private float m_currentLerpRatio = 0.0f;
 
     public void Activate()
     {
         StopAllCoroutines();
-        StartCoroutine(AnimateActivable(m_animTimeSeconds, true));
+        StartCoroutine(AnimateActivable(m_animOpenSeconds, true));
 
     }
 
@@ -22,7 +23,7 @@ public class Activable : MonoBehaviour
     {
 
         StopAllCoroutines();
-        StartCoroutine(AnimateActivable(m_animTimeSeconds, false));
+        StartCoroutine(AnimateActivable(m_animCloseSeconds, false));
 
     }
 
@@ -32,7 +33,7 @@ public class Activable : MonoBehaviour
 
         while (!finishAnim)
         {
-            float dtLerp = m_animTimeSeconds * Time.deltaTime * (open ? 1 : -1);
+            float dtLerp = (1f/timeAnime) * Time.deltaTime * (open ? 1 : -1);
             m_currentLerpRatio += dtLerp;
             m_model.position = Vector3.Lerp(m_startPosition.position, m_endPosition.position, m_currentLerpRatio);
 
