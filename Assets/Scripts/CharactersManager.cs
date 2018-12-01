@@ -40,5 +40,10 @@ namespace LD43 {
 			characters[activeCharacter].Activate();
 		}
 
+        public CharController GetCurrentController()
+        {
+            return characters[activeCharacter];
+        }
+
 	}
 }

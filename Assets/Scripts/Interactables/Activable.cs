@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Activable : MonoBehaviour {
+public class Activable : MonoBehaviour
+{
     [SerializeField] private Transform m_model;
     [SerializeField] private Transform m_startPosition;
     [SerializeField] private Transform m_endPosition;
     [SerializeField] private float m_animTimeSeconds = 1.0f;
-
-    private bool m_isMoving = false;
-    private bool m_isOpen = false;
 
     private float m_currentLerpRatio = 0.0f;
 
@@ -17,38 +15,34 @@ public class Activable : MonoBehaviour {
     {
         StopAllCoroutines();
         StartCoroutine(AnimateActivable(m_animTimeSeconds, true));
+
     }
 
     public void Desactivate()
     {
+
         StopAllCoroutines();
         StartCoroutine(AnimateActivable(m_animTimeSeconds, false));
+
     }
 
     IEnumerator AnimateActivable(float timeAnime, bool open)
     {
-        if (m_isMoving && open != m_isOpen) // we change during anim
-            m_currentLerpRatio = 1 - m_currentLerpRatio;
-
-        m_isMoving = true;
         bool finishAnim = false;
-
-        Vector3 start = open ? m_startPosition.position : m_endPosition.position;
-        Vector3 end = open ? m_endPosition.position : m_startPosition.position;
 
         while (!finishAnim)
         {
-            m_currentLerpRatio += m_animTimeSeconds * Time.deltaTime;
-            m_model.position = Vector3.Lerp(start, end, m_currentLerpRatio);
+            float dtLerp = m_animTimeSeconds * Time.deltaTime * (open ? 1 : -1);
+            m_currentLerpRatio += dtLerp;
+            m_model.position = Vector3.Lerp(m_startPosition.position, m_endPosition.position, m_currentLerpRatio);
 
-            if (m_currentLerpRatio >= 1)
+            if ((open && m_currentLerpRatio >= 1) || (!open && m_currentLerpRatio <= 0))
                 finishAnim = true;
+
             yield return null;
         }
 
-        m_currentLerpRatio = 0.0f;
-        m_isOpen = open;
-        m_isMoving = false;
+        m_currentLerpRatio = Mathf.Clamp01(m_currentLerpRatio);
         yield return null;
     }
 }

@@ -1,60 +1,75 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public class EndLevel : MonoBehaviour
+namespace LD43
 {
-    private GameObject m_leader;
-    private enum EndLevelState
+    public class EndLevel : MonoBehaviour
     {
-        NotReady = 0,
-        Ready = 1,
-        Quit = 2
-    }
+        [SerializeField] private List<GameObject> m_charactersReady;
 
-    EndLevelState m_state = EndLevelState.NotReady;
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (m_state < EndLevelState.Ready)
+        private enum EndLevelState
         {
-            m_state = EndLevelState.Ready;
-            m_leader = collision.gameObject;
-        }        
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (m_state < EndLevelState.Ready)
-        {
-            m_state = EndLevelState.NotReady;
-            m_leader = null;
+            NotReady = 0,
+            Ready = 1,
+            Quit = 2
         }
-    }
 
-    private void Update()
-    {
-        switch (m_state)
+        EndLevelState m_state = EndLevelState.NotReady;
+
+        private void OnTriggerEnter2D(Collider2D collision)
         {
-            case EndLevelState.NotReady:
-                break;
-            case EndLevelState.Ready:
-                if (Input.GetButtonDown("LeaderQuit"))
-                {
-                    m_state = EndLevelState.Quit;
+            if (!collision.CompareTag("Players"))
+                return;
 
-                    // TODO : hide the leader
-                    m_leader.gameObject.SetActive(false);
-                }
-                break;
-            case EndLevelState.Quit:
-                if(Input.GetButtonDown("ChangeLevel"))
-                {
-                    GameManager.NextLevel();
-                }
-                break;
-            default:
-                break;
+            if (m_state < EndLevelState.Ready)
+            {
+                m_state = EndLevelState.Ready;
+            }
+
+            m_charactersReady.Add(collision.gameObject);
         }
-    }
+
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            if (!collision.CompareTag("Players"))
+                return;
+
+            GameObject toDelete = m_charactersReady.FirstOrDefault(c => GameObject.ReferenceEquals(c, collision.gameObject));
+            if (toDelete)
+                m_charactersReady.Remove(toDelete);
+
+            if (m_state < EndLevelState.Ready && m_charactersReady.Count == 0)
+            {
+                m_state = EndLevelState.NotReady;
+            }
+        }
+
+        private void Update()
+        {
+            switch (m_state)
+            {
+                case EndLevelState.NotReady:
+                    break;
+                case EndLevelState.Ready:
+                    if (Input.GetButtonDown("LeaderQuit"))
+                    {
+                        m_state = EndLevelState.Quit;
+
+                        // TODO : hide the leader
+                        CharactersManager.I.GetCurrentController().gameObject.SetActive(false);
+                    }
+                    break;
+                case EndLevelState.Quit:
+                    if (Input.GetButtonDown("Submit"))
+                    {
+                        GameManager.NextLevel();
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+    } 
 }
