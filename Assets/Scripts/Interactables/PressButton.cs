@@ -8,13 +8,13 @@ namespace LD43
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.gameObject.GetComponent<CharController>())
+            if (collision.gameObject.GetComponent<CharController>() || collision.gameObject.layer == LayerMask.NameToLayer("Movable"))
                 m_activable.Activate();
         }
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            if (collision.gameObject.GetComponent<CharController>())
+            if (collision.gameObject.GetComponent<CharController>() || collision.gameObject.layer == LayerMask.NameToLayer("Movable"))
                 m_activable.Desactivate();
         }
 

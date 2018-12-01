@@ -157,8 +157,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_activable: {fileID: 1281856393}
-  m_activableTags:
-  - Players
 --- !u!61 &42041955
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -807,8 +805,8 @@ MonoBehaviour:
   m_dialogController: {fileID: 1816011326}
   m_levelNames:
   - Suliac_Test
-  - Suliac_Test_2
-  - Suliac_Test_3
+  - Suliac_Test 1
+  - Suliac_Test 2
   m_currentIndexScene: 0
   m_playerTypesToSpawn: 3
 --- !u!4 &469859246
@@ -1374,6 +1372,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c96596031057ad48927ac8516c16c62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characters: []
   m_startPositions:
   - {fileID: 195423102}
   - {fileID: 356189771}
