@@ -8,15 +8,21 @@ namespace LD43 {
 
 		public float speed = 5f;
 		public float pushSpeed = 2f;
-		public float jumpForce = 12f;
-		public float baseGravity = 2f;
-		public float fallGravity = 6f;
+		public float jumpHeight = 5f;
+		public float jumpDistance = 4f;
+		public float jumpAirSpeed = 7f;
 		public PhysicsMaterial2D matDead;
+
+		private float gravity = 1f;
+		private float ascentGravity = 1f;
+		private float coastGravity = 1f;
+		private float descentGravity = 1f;
+		private float jumpVelocity = 0f;
+		private float prevVertVel = 0f;
 
 		private bool isActive = false;
 		private bool isDead = false;
 		private bool inAir = true;
-		private bool pushing = false;
 		private Rigidbody2D rb;
 		private Collider2D col;
 		private Vector2 velocity = Vector2.zero;
@@ -25,7 +31,6 @@ namespace LD43 {
 		private Collider2D landZone;
 		private ContactFilter2D landZoneFilter;
 		private EdgeCollider2D platform;
-		private Transform layingPlatformLocation;
 		private float height = 0f;
 		private float width = 0f;
 
@@ -39,9 +44,18 @@ namespace LD43 {
 			landZoneFilter = new ContactFilter2D();
 			landZoneFilter.SetLayerMask(~LayerMask.GetMask("Character"));
 			platform = transform.Find("Platform").GetComponent<EdgeCollider2D>();
-			layingPlatformLocation = transform.Find("LayingPlatformLocation");
 			height = col.bounds.extents.y * 2f;
 			width = col.bounds.extents.x * 2f;
+
+			rb.gravityScale = 0f;
+			float ascentDist = jumpDistance * 0.666f;
+			float descentDist = jumpDistance * 0.333f;
+			ascentGravity = (-2f * jumpHeight * jumpAirSpeed * jumpAirSpeed) / (ascentDist * ascentDist);
+			descentGravity = (-2f * jumpHeight * jumpAirSpeed * jumpAirSpeed) / (descentDist * descentDist);
+			coastGravity = descentGravity;
+			jumpVelocity = (2f * jumpHeight * jumpAirSpeed) / ascentDist;
+			prevVertVel = rb.velocity.y;
+			gravity = descentGravity;
 		}
 
 		private void Update() {
@@ -63,7 +77,11 @@ namespace LD43 {
 				// Pushable Object Check
 				colCount = pushZone.OverlapCollider(pushZoneFilter, colliders);
 				if (colCount == 0) { // no pushable
-					velocity.x *= speed;
+					if (inAir) {
+						velocity.x *= jumpAirSpeed;
+					} else {
+						velocity.x *= speed;
+					}
 				} else { // pushable
 					velocity.x *= pushSpeed;
 				}
@@ -81,21 +99,30 @@ namespace LD43 {
 			if (isActive) {
 				// Jump
 				if (Input.GetButtonDown("Jump") && !inAir) {
-					rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+					rb.AddForce(Vector2.up * jumpVelocity, ForceMode2D.Impulse);
+					gravity = ascentGravity;
+				}
+				if (Input.GetButtonUp("Jump") && inAir && rb.velocity.y > 0f) {
+					gravity = coastGravity;
 				}
 			}
 
 			// Gravity
-			if (rb.velocity.y < 3f) {
-				rb.gravityScale = fallGravity;
-			} else {
-				rb.gravityScale = baseGravity;
+			if (prevVertVel > 0 && rb.velocity.y < 0) {
+				gravity = descentGravity;
 			}
+			//if (rb.velocity.y > 0f) {
+			//	gravity = ascentGravity;
+			//} else {
+			//	gravity = descentGravity;
+			//}
+
+			prevVertVel = rb.velocity.y;
 		}
 
 		private void FixedUpdate() {
 			if (isDead) return;
-			velocity.y = rb.velocity.y;
+			velocity.y = rb.velocity.y + gravity * Time.fixedDeltaTime;
 			rb.velocity = velocity;
 		}
 
