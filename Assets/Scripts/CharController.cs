@@ -15,6 +15,8 @@ namespace LD43 {
 
         public PlayerTypesFlag PlayerType;
 
+        [SerializeField] private AudioSource m_deadSound;
+
 		private float gravity = 1f;
 		private float ascentGravity = 1f;
 		private float coastGravity = 1f;
@@ -156,6 +158,8 @@ namespace LD43 {
 			rb.bodyType = RigidbodyType2D.Static;
 			rb.sharedMaterial = matDead;
 			gameObject.layer = LayerMask.NameToLayer("DeadCharacter");
+            if (m_deadSound)
+                m_deadSound.Play();
 		}
 
 	}

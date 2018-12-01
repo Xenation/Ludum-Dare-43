@@ -8,7 +8,7 @@ namespace LD43
     public class EndLevel : MonoBehaviour
     {
         [SerializeField] private List<GameObject> m_charactersReady;
-        private AudioSource m_endLevelSource;
+        [SerializeField] private AudioSource m_endLevelSource;
         private bool leaderSaved = false;
 
         private enum EndLevelState
