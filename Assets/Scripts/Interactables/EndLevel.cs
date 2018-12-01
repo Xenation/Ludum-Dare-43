@@ -8,7 +8,7 @@ namespace LD43
     public class EndLevel : MonoBehaviour
     {
         [SerializeField] private List<GameObject> m_charactersReady;
-
+        private AudioSource m_endLevelSource;
         private bool leaderSaved = false;
 
         private enum EndLevelState
@@ -70,6 +70,9 @@ namespace LD43
                     }
                     if (Input.GetButtonDown("Submit") && leaderSaved)
                     {
+                        if (m_endLevelSource)
+                            m_endLevelSource.Play();
+
                         GameManager.NextLevel();
                     }
                     break;
