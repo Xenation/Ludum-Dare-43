@@ -9,6 +9,8 @@ namespace LD43
     {
         [SerializeField] private List<GameObject> m_charactersReady;
         [SerializeField] private AudioSource m_endLevelSource;
+        [SerializeField] private GameObject m_indicator;
+
         private bool leaderSaved = false;
 
         private enum EndLevelState
@@ -19,6 +21,12 @@ namespace LD43
         }
 
         EndLevelState m_state = EndLevelState.NotReady;
+
+        private void Start()
+        {
+            if (m_indicator)
+                m_indicator.SetActive(false);
+        }
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
@@ -50,6 +58,8 @@ namespace LD43
 
         private void Update()
         {
+            m_indicator.SetActive(m_charactersReady != null && m_charactersReady.Where(c => c.activeInHierarchy).ToArray().Length > 0);
+
             switch (m_state)
             {
                 case EndLevelState.NotReady:
@@ -61,8 +71,10 @@ namespace LD43
                         GameManager.SavePlayerType(currentController.PlayerType);
 
                         if (currentController.PlayerType == PlayerTypesFlag.Leader)
+                        {
                             leaderSaved = true;
-
+                            GameManager.DisplayLeaderSaved();
+                        }
                         currentController.gameObject.SetActive(false);
 
                         if (m_endLevelSource)

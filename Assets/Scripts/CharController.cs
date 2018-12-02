@@ -54,6 +54,8 @@ namespace LD43 {
 		private List<SpriteRenderer> subRenderers;
 		private Material material;
 		private ProcessManager procManager;
+        private bool m_firstLandIgnore = false;
+        private bool m_firstAirIgnore = false;
 
 		private void Awake() {
 			rb = GetComponent<Rigidbody2D>();
@@ -186,8 +188,11 @@ namespace LD43 {
 
                     if(m_lastFrameInAir) // if last frame char was in air and now he is not : he is landing
                     {
-                        if (m_landSound)
+                        if (m_landSound && m_firstLandIgnore)
                             m_landSound.Play();
+
+                        if (!m_firstLandIgnore)
+                            m_firstLandIgnore = true;
                     }
 				}
 			}
@@ -196,8 +201,11 @@ namespace LD43 {
 
                 if(!m_lastFrameInAir)
                 {
-                    if (m_jumpSound)
+                    if (m_jumpSound && m_firstLandIgnore)
                         m_jumpSound.Play();
+
+                    if (!m_firstAirIgnore)
+                        m_firstAirIgnore = true;
                 }
 			}
 

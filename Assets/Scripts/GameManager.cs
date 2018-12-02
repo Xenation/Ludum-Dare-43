@@ -51,13 +51,15 @@ namespace LD43
             NextLevel(m_instance.m_currentIndexScene);
         }
 
-       // private DialogController m_dialogController;
-       // public static DialogController DialogController { get { return m_instance.m_dialogController; } }
+        // private DialogController m_dialogController;
+        // public static DialogController DialogController { get { return m_instance.m_dialogController; } }
 
         IEnumerator DialogAfterSeconds(float waitingTime = 0.0f)
         {
             yield return new WaitForSeconds(waitingTime);
-            DialogController.I.NextText();
+
+            if (DialogController.I)
+                DialogController.I.NextText();
         }
 
         // -----------------------
@@ -71,6 +73,7 @@ namespace LD43
         [SerializeField] private int m_currentIndexScene = 0;
         [SerializeField] private float m_fadeTime = 1.0f;
         [SerializeField] private RawImage m_fadeBackground;
+        [SerializeField] private RawImage m_leaderSaved;
 
         private string m_lastSceneName;
         private string m_currentSceneName;
@@ -115,12 +118,20 @@ namespace LD43
 
         void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
+            if (m_leaderSaved)
+                m_leaderSaved.gameObject.SetActive(false);
+
             m_currentSceneName = scene.name;
             //Debug.Log("OnSceneLoaded: " + scene.name);
             m_instance.StartCoroutine(m_instance.FadeLevel(m_instance.m_fadeTime, false, false));
 
             if (m_currentSceneName != m_lastSceneName)
                 m_instance.StartCoroutine(m_instance.DialogAfterSeconds(0.0f));
+        }
+
+        public static void DisplayLeaderSaved()
+        {
+            m_instance.m_leaderSaved.gameObject.SetActive(true);
         }
 
         IEnumerator FadeLevel(float fadeTime, bool fadeIn, bool changeScene)

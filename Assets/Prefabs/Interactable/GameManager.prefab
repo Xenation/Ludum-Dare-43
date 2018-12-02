@@ -43,6 +43,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1281893059754062
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 224708094257540876}
+  - component: {fileID: 222548828016283848}
+  - component: {fileID: 114812382981316174}
+  m_Layer: 0
+  m_Name: LeaderSaved
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1309314154672790
 GameObject:
   m_ObjectHideFlags: 0
@@ -136,7 +153,6 @@ GameObject:
   - component: {fileID: 114425896646492124}
   - component: {fileID: 114690041480992566}
   - component: {fileID: 114955410709742348}
-  - component: {fileID: 114809942496062040}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -426,7 +442,8 @@ AudioSource:
   m_GameObject: {fileID: 1419631169693996}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: cdb8dce83948c144a95ae876862cfc9c,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 03cecd15df9dbfd4096a389374bb9018, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -740,21 +757,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65e58d8fe1c974644b9e082fd51a221a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_dialogController: {fileID: 114809942496062040}
   m_levelNames:
-  - Menu
-  - Suliac_Test
-  - Suliac_Test 1
+  - Menu_Final
+  - Level1
+  - Level2
+  - Level3
+  - Level4
+  - Level5
   m_currentIndexScene: 0
   m_fadeTime: 1
   m_fadeBackground: {fileID: 114015754254602904}
+  m_leaderSaved: {fileID: 114812382981316174}
   m_menuMusic: {fileID: 82559951706170910}
   m_introMusic: {fileID: 82647122048405170}
   m_loopMusic: {fileID: 82499587308598638}
   m_playerIndicatorPrefab: {fileID: 1329962396208710, guid: 23023e3d50a02214b9e6bbe6cbc5fa08,
     type: 2}
   m_playerIndicatorOffset: {x: 0, y: 0, z: 0}
-  m_playerTypesToSpawn: 3
+  m_playerTypesToSpawn: -1
 --- !u!114 &114690041480992566
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -777,50 +797,32 @@ MonoBehaviour:
     Prefab: {fileID: 1259636387321666, guid: 0211341a6c73c4f0996d9ef9104d72c8, type: 2}
   - Type: 16
     Prefab: {fileID: 1259636387321666, guid: b870fecbb2d49477fa757afe505e5348, type: 2}
---- !u!114 &114809942496062040
+--- !u!114 &114812382981316174
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1991990405086044}
+  m_GameObject: {fileID: 1281893059754062}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6364a0334af1cd940ae80a5f45fa8167, type: 3}
+  m_Script: {fileID: -98529514, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_texts:
-  - Content: Coucou
-    ContentWithEveryoneAlive: 
-    Character: 1
-  - Content: Salut
-    ContentWithEveryoneAlive: 
-    Character: 2
-  - Content: '...'
-    ContentWithEveryoneAlive: 
-    Character: 1
-  - Content: 
-    ContentWithEveryoneAlive: 
-    Character: 0
-  - Content: lorem
-    ContentWithEveryoneAlive: 
-    Character: 2
-  m_names:
-  - Name: SuperMan
-    Character: 1
-  - Name: Nain
-    Character: 2
-  - Name: Grande
-    Character: 4
-  - Name: Naruto
-    Character: 8
-  - Name: Hodor
-    Character: 16
-  m_bubblePrefab: {fileID: 1547387037418042, guid: 93207374662b2694da812b43341a53e7,
-    type: 2}
-  m_bubbleOffset: {x: 0, y: 1, z: -0.5}
-  m_timeBetweenLetters: 0.1
-  m_soundChangeDialog: {fileID: 82001603802340558}
-  m_soundDialog: {fileID: 82542912757969178}
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Texture: {fileID: 2800000, guid: e9b79b73fff2cb145abb9be2ec14e468, type: 3}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
 --- !u!114 &114874304052248142
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -848,6 +850,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1adeb6ae54baea2478414198af155717, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!222 &222548828016283848
+CanvasRenderer:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1281893059754062}
+  m_CullTransparentMesh: 0
 --- !u!222 &222732074728363900
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -885,6 +894,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
+  - {fileID: 224708094257540876}
   - {fileID: 224408961610805702}
   m_Father: {fileID: 4060576779623614}
   m_RootOrder: 0
@@ -905,10 +915,28 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 224249871835899462}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!224 &224708094257540876
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1281893059754062}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 224249871835899462}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.85, y: 0.65}
+  m_AnchorMax: {x: 1, y: 0.95}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}

@@ -100,10 +100,15 @@ namespace LD43 {
                 if (m_changeCharacterSound)
                     m_changeCharacterSound.Play();
 
-                characters[activeCharacter].Desactivate();
-                activeCharacter++;
-                activeCharacter = activeCharacter % characters.Count;
-                characters[activeCharacter].Activate();
+                int count = 0;
+                do
+                {
+                    characters[activeCharacter].Desactivate();
+                    activeCharacter++;
+                    activeCharacter = activeCharacter % characters.Count;
+                    characters[activeCharacter].Activate();
+                    count++;
+                } while (!characters[activeCharacter].gameObject.activeInHierarchy || count > 5);
             }
 		}
 
