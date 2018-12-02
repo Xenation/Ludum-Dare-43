@@ -32,14 +32,17 @@ namespace LD43
     public class MenuController : MonoBehaviour
     {
         [SerializeField] private List<MenuChoiceInfos> m_infos;
+        [SerializeField] private AudioSource m_changeButtonSound;
+        [SerializeField] private AudioSource m_validateButtonSound;
+
         private int m_currentChoiceIndex = 0;
 
         private LastInput m_lastInput = LastInput.Nothing;
-
-
+        private bool m_isExecuting = false;
 
         private void Start()
         {
+            m_isExecuting = false;
         }
 
         private void Update()
@@ -48,6 +51,9 @@ namespace LD43
             {
                 if (m_lastInput != LastInput.Up)
                 {
+                    if (m_changeButtonSound)
+                        m_changeButtonSound.Play();
+
                     m_currentChoiceIndex++;
 
                     if (m_currentChoiceIndex >= m_infos.Count)
@@ -60,6 +66,9 @@ namespace LD43
             {
                 if (m_lastInput != LastInput.Down)
                 {
+                    if (m_changeButtonSound)
+                        m_changeButtonSound.Play();
+
                     m_currentChoiceIndex--;
 
                     if (m_currentChoiceIndex < 0)
@@ -74,16 +83,27 @@ namespace LD43
             }
 
             if (Input.GetButtonDown("Submit"))
-                Execute();
-
-            for (int i = 0; i < m_infos.Count; i++)
             {
-                m_infos[i].Renderer.sprite = i == m_currentChoiceIndex ? m_infos[i].HoverSprite : m_infos[i].DefaultSprite;
+                if (m_validateButtonSound)
+                    m_validateButtonSound.Play();
+
+                m_isExecuting = true;
+                Execute();
+            }
+
+            if (!m_isExecuting)
+            {
+                for (int i = 0; i < m_infos.Count; i++)
+                {
+                    m_infos[i].Renderer.sprite = i == m_currentChoiceIndex ? m_infos[i].HoverSprite : m_infos[i].DefaultSprite;
+                }
+
             }
         }
 
         private void Execute()
         {
+            m_infos[m_currentChoiceIndex].Renderer.sprite = m_infos[m_currentChoiceIndex].SelectedSprite;
             switch (m_infos[m_currentChoiceIndex].Type)
             {
                 case MenuChoice.Play:
