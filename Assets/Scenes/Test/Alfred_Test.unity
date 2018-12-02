@@ -2282,6 +2282,8 @@ MonoBehaviour:
   - Suliac_Test 1
   - Suliac_Test 2
   m_currentIndexScene: 0
+  m_fadeTime: 1
+  m_fadeBackground: {fileID: 0}
   m_playerTypesToSpawn: -1
 --- !u!4 &1490916599
 Transform:
