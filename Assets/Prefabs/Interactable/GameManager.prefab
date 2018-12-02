@@ -172,6 +172,17 @@ MonoBehaviour:
     Character: 0
   - Content: lorem
     Character: 2
+  m_names:
+  - Character: 1
+    Name: SuperMan
+  - Character: 2
+    Name: Nain
+  - Character: 4
+    Name: Grande
+  - Character: 8
+    Name: Naruto
+  - Character: 16
+    Name: Hodor
   m_bubblePrefab: {fileID: 1547387037418042, guid: 93207374662b2694da812b43341a53e7,
     type: 2}
   m_bubbleOffset: {x: 0, y: 1, z: -0.5}

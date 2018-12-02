@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,16 +15,26 @@ namespace LD43
         public PlayerTypesFlag Character;
     }
 
+    [Serializable]
+    public struct PlayersNames
+    {
+        public string Name;
+        public PlayerTypesFlag Character;
+    }
+
     public class DialogController : MonoBehaviour
     {
         [SerializeField] private List<DialogInfos> m_texts;
+        [SerializeField] private List<PlayersNames> m_names;
         [SerializeField] private GameObject m_bubblePrefab;
         [SerializeField] private Vector3 m_bubbleOffset = new Vector3(0f, 1f, -0.5f);
         [SerializeField] private float m_timeBetweenLetters = 0.1f;
 
         private GameObject m_currentBubble;
         private TextMeshPro m_bubbleText;
+        private TextMeshPro m_bubbleName;
         private PlayerTypesFlag m_charactersDisplaying = 0;
+        private Transform m_toFollow = null;
 
         private int m_currentIndex = -1;
 
@@ -32,6 +43,9 @@ namespace LD43
 
         private void Update()
         {
+            if (m_toFollow)
+                m_currentBubble.transform.position = m_toFollow.position + m_bubbleOffset;
+
             if (m_charactersDisplaying > 0 && Input.anyKeyDown)
             {
                 if (m_isDisplayingText)
@@ -48,8 +62,16 @@ namespace LD43
         private void Start()
         {
             m_currentBubble = Instantiate(m_bubblePrefab);
-            m_bubbleText = m_currentBubble.GetComponentInChildren<TextMeshPro>();
+            TextMeshPro[] texts = m_currentBubble.GetComponentsInChildren<TextMeshPro>();
+            foreach (var text in texts)
+            {
+                if (text.name.Contains("text"))
+                    m_bubbleText = text;
+                else if (text.name.Contains("name"))
+                    m_bubbleName = text;
+            }
             m_bubbleText.renderer.sortingOrder = 100;
+            m_bubbleName.renderer.sortingOrder = 100;
             ChangeUIVisibility(0);
         }
 
@@ -59,14 +81,15 @@ namespace LD43
             if (m_currentIndex >= m_texts.Count || string.IsNullOrEmpty(m_texts[m_currentIndex].Content))
                 ChangeUIVisibility(0);
             else
-                ChangeUIVisibility(m_texts[m_currentIndex].Character, m_texts[m_currentIndex].Content);
+                ChangeUIVisibility(m_texts[m_currentIndex].Character, m_texts[m_currentIndex].Content, m_names.FirstOrDefault(n => n.Character == m_texts[m_currentIndex].Character).Name ?? "");
 
         }
-
-        private void ChangeUIVisibility(PlayerTypesFlag charactersDisplaying, string text = "")
+        
+        private void ChangeUIVisibility(PlayerTypesFlag charactersDisplaying, string text = "", string name = "")
         {
             if (charactersDisplaying == 0)
             {
+                m_toFollow = null;
                 m_currentBubble.SetActive(false);
                 return;
             }
@@ -77,8 +100,8 @@ namespace LD43
                 if (!m_currentBubble.activeSelf)
                     m_currentBubble.SetActive(true);
 
-                m_currentBubble.transform.parent = controller.OverlayPosition.transform;
-                m_currentBubble.transform.localPosition = m_bubbleOffset;
+                m_toFollow = controller.OverlayPosition.transform;
+                m_bubbleName.text = name;
 
                 StopAllCoroutines();
                 StartCoroutine(DisplayText(text, m_timeBetweenLetters));
