@@ -84,10 +84,10 @@ namespace LD43
             if (CharactersManager.I)
             {
                 m_currentIndex++;
-                if (m_currentIndex >= m_texts.Count || string.IsNullOrEmpty(m_texts[m_currentIndex].Content))
+                if (m_currentIndex >= m_texts.Count || (string.IsNullOrEmpty(m_texts[m_currentIndex].Content) && string.IsNullOrEmpty(m_texts[m_currentIndex].ContentWithEveryoneAlive)))
                     ChangeUIVisibility(0);
                 else
-                    ChangeUIVisibility(m_texts[m_currentIndex].Character, GameManager.PlayerTypesToSpawn == (PlayerTypesFlag)31 ? m_texts[m_currentIndex].ContentWithEveryoneAlive : m_texts[m_currentIndex].Content, m_names.FirstOrDefault(n => n.Character == m_texts[m_currentIndex].Character).Name ?? "");
+                    ChangeUIVisibility(m_texts[m_currentIndex].Character, GameManager.PlayerHereAtStart == (PlayerTypesFlag)31 ? m_texts[m_currentIndex].ContentWithEveryoneAlive : m_texts[m_currentIndex].Content, m_names.FirstOrDefault(n => n.Character == m_texts[m_currentIndex].Character).Name ?? "");
             }
 
         }
@@ -104,7 +104,7 @@ namespace LD43
 
 
             CharController controller = CharactersManager.I.GetCharacterWithType(charactersDisplaying);
-            if (controller)
+            if (controller && !string.IsNullOrEmpty(text))
             {
                 if (m_soundChangeDialog)
                     m_soundChangeDialog.Play();
