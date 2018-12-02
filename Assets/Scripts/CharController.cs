@@ -17,6 +17,9 @@ namespace LD43 {
         public PlayerTypesFlag PlayerType;
         public GameObject OverlayPosition;
         [SerializeField] private AudioSource m_deadSound;
+        [SerializeField] private AudioSource m_jumpSound;
+        [SerializeField] private AudioSource m_landSound;
+        private bool m_lastFrameInAir = false;
 
 		[SerializeField] private Gradient outlineAnimGradient;
 		[SerializeField] private float outlineAnimDuration = 1f;
@@ -161,11 +164,25 @@ namespace LD43 {
 				if (colliders[i] != col) {
 					inAir = false;
 					animator.SetBool(isJumpingId, false);
+
+                    if(m_lastFrameInAir) // if last frame char was in air and now he is not : he is landing
+                    {
+                        if (m_landSound)
+                            m_landSound.Play();
+                    }
 				}
 			}
 			if (inAir) {
 				animator.SetBool(isJumpingId, true);
+
+                if(!m_lastFrameInAir)
+                {
+                    if (m_jumpSound)
+                        m_jumpSound.Play();
+                }
 			}
+
+            m_lastFrameInAir = inAir;
 
 			velocity.y = rb.velocity.y + gravity * Time.fixedDeltaTime;
 

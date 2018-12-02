@@ -30,6 +30,8 @@ namespace LD43
         [SerializeField] private GameObject m_bubblePrefab;
         [SerializeField] private Vector3 m_bubbleOffset = new Vector3(0f, 1f, -0.5f);
         [SerializeField] private float m_timeBetweenLetters = 0.1f;
+        [SerializeField] private AudioSource m_soundChangeDialog;
+        [SerializeField] private AudioSource m_soundDialog;
 
         private GameObject m_currentBubble;
         private TextMeshPro m_bubbleText;
@@ -104,6 +106,9 @@ namespace LD43
             CharController controller = CharactersManager.I.GetCharacterWithType(charactersDisplaying);
             if (controller)
             {
+                if (m_soundChangeDialog)
+                    m_soundChangeDialog.Play();
+
                 m_toFollow = controller.OverlayPosition.transform;
                 m_bubbleName.text = name;
 
@@ -129,6 +134,10 @@ namespace LD43
         IEnumerator DisplayText(string text, float timeBetweenLetter)
         {
             m_isDisplayingText = true;
+
+            if (m_soundDialog)
+                m_soundDialog.Play();
+
             string currentDisplay = "";
             for (int i = 0; i < text.Length; i++)
             {
@@ -137,6 +146,9 @@ namespace LD43
                     m_bubbleText.text = text;
                     m_isDisplayingText = false;
                     m_wantToStopDisplaying = false;
+
+                    if (m_soundDialog)
+                        SoundHelper.I.StopWithFade(m_soundDialog);
                     yield break;
                 }
 
@@ -148,6 +160,9 @@ namespace LD43
             m_bubbleText.text = text;
             m_isDisplayingText = false;
             m_wantToStopDisplaying = false;
+
+            if (m_soundDialog)
+                SoundHelper.I.StopWithFade(m_soundDialog);
             yield return null;
         }
 
