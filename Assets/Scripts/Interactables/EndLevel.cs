@@ -79,6 +79,14 @@ namespace LD43
 
                         if (m_endLevelSource)
                             m_endLevelSource.Play();
+
+                        if (GameManager.PlayerTypesToSpawn == (PlayerTypesFlag)31) // everyone saved
+                        {
+                            GameManager.NextLevel();
+                            return;
+                        }
+
+                        CharactersManager.I.NextCharacter();
                     }
                     if (Input.GetButtonDown("Submit") && leaderSaved)
                     {
