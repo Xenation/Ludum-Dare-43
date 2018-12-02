@@ -49,19 +49,18 @@ namespace LD43
             if (m_charactersDisplaying > 0 && Input.anyKeyDown)
             {
                 if (m_isDisplayingText)
-                {
                     m_wantToStopDisplaying = true;
-                }
                 else
-                {
                     NextText();
-                }
             }
         }
 
         private void Start()
         {
             m_currentBubble = Instantiate(m_bubblePrefab);
+            DontDestroyOnLoad(m_currentBubble);
+            m_currentBubble.SetActive(false);
+
             TextMeshPro[] texts = m_currentBubble.GetComponentsInChildren<TextMeshPro>();
             foreach (var text in texts)
             {
@@ -72,34 +71,35 @@ namespace LD43
             }
             m_bubbleText.renderer.sortingOrder = 100;
             m_bubbleName.renderer.sortingOrder = 100;
-            ChangeUIVisibility(0);
         }
 
         public void NextText()
         {
-            m_currentIndex++;
-            if (m_currentIndex >= m_texts.Count || string.IsNullOrEmpty(m_texts[m_currentIndex].Content))
-                ChangeUIVisibility(0);
-            else
-                ChangeUIVisibility(m_texts[m_currentIndex].Character, m_texts[m_currentIndex].Content, m_names.FirstOrDefault(n => n.Character == m_texts[m_currentIndex].Character).Name ?? "");
+            if (CharactersManager.I)
+            {
+                m_currentIndex++;
+                if (m_currentIndex >= m_texts.Count || string.IsNullOrEmpty(m_texts[m_currentIndex].Content))
+                    ChangeUIVisibility(0);
+                else
+                    ChangeUIVisibility(m_texts[m_currentIndex].Character, m_texts[m_currentIndex].Content, m_names.FirstOrDefault(n => n.Character == m_texts[m_currentIndex].Character).Name ?? ""); 
+            }
 
         }
-        
+
         private void ChangeUIVisibility(PlayerTypesFlag charactersDisplaying, string text = "", string name = "")
         {
             if (charactersDisplaying == 0)
             {
                 m_toFollow = null;
                 m_currentBubble.SetActive(false);
+                m_charactersDisplaying = charactersDisplaying;
                 return;
             }
+
 
             CharController controller = CharactersManager.I.GetCharacterWithType(charactersDisplaying);
             if (controller)
             {
-                if (!m_currentBubble.activeSelf)
-                    m_currentBubble.SetActive(true);
-
                 m_toFollow = controller.OverlayPosition.transform;
                 m_bubbleName.text = name;
 
@@ -107,11 +107,18 @@ namespace LD43
                 StartCoroutine(DisplayText(text, m_timeBetweenLetters));
 
                 m_charactersDisplaying = charactersDisplaying;
+
+                if (m_toFollow)
+                    m_currentBubble.transform.position = m_toFollow.position + m_bubbleOffset;
+
+                if (!m_currentBubble.activeSelf)
+                    m_currentBubble.SetActive(true);
             }
             else
             {
                 NextText();
             }
+
 
         }
 
@@ -121,12 +128,12 @@ namespace LD43
             string currentDisplay = "";
             for (int i = 0; i < text.Length; i++)
             {
-                if(m_wantToStopDisplaying)
+                if (m_wantToStopDisplaying)
                 {
                     m_bubbleText.text = text;
                     m_isDisplayingText = false;
                     m_wantToStopDisplaying = false;
-                     yield break;
+                    yield break;
                 }
 
                 currentDisplay += text[i];

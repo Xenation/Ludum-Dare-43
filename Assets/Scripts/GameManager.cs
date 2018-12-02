@@ -16,7 +16,10 @@ namespace LD43
             if (m_instance == null)
                 m_instance = this;
             else if (m_instance != this)
+            {
                 Destroy(gameObject);
+                return;
+            }
 
             DontDestroyOnLoad(gameObject);
 
@@ -26,6 +29,7 @@ namespace LD43
         private void Init()
         {
             m_currentPlayerIndicator = Instantiate(m_playerIndicatorPrefab);
+
             SceneManager.sceneLoaded += OnSceneLoaded;
         }
 
@@ -47,11 +51,15 @@ namespace LD43
         [SerializeField] private int m_currentIndexScene = 0;
         [SerializeField] private float m_fadeTime = 1.0f;
         [SerializeField] private RawImage m_fadeBackground;
-        public static void NextLevel()
+        public static void NextLevel(int nextLevelIndex = -1)
         {
             UpdatePlayerIndicator(null, 0f, false);
 
-            m_instance.m_currentIndexScene++;
+            if (nextLevelIndex < 0)
+                m_instance.m_currentIndexScene++;
+            else
+                m_instance.m_currentIndexScene = nextLevelIndex;
+
             if (m_instance.m_currentIndexScene >= LevelsNames.Count)
                 m_instance.m_currentIndexScene = 0;
 
@@ -98,6 +106,9 @@ namespace LD43
         public static GameObject PlayerIndicatorPrefab { get { return m_instance.m_playerIndicatorPrefab; } }
         public static void UpdatePlayerIndicator(CharController parent, float yOffset, bool display = true)
         {
+            if(!m_instance.m_currentPlayerIndicator)
+                m_instance.m_currentPlayerIndicator = Instantiate(m_instance.m_playerIndicatorPrefab);
+
             if (parent)
             {
                 m_instance.m_currentPlayerIndicator.transform.parent = parent.OverlayPosition.transform;

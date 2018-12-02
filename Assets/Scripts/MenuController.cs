@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +8,7 @@ namespace LD43
     public enum MenuChoice
     {
         Play,
+        Credit,
         Quit
     }
 
@@ -17,45 +19,52 @@ namespace LD43
         Up
     }
 
+    [Serializable]
+    public struct MenuChoiceInfos
+    {
+        public MenuChoice Type;
+        public SpriteRenderer Renderer;
+        public Sprite DefaultSprite;
+        public Sprite HoverSprite;
+        public Sprite SelectedSprite;
+    }
+
     public class MenuController : MonoBehaviour
     {
-        private LastInput m_lastInput = LastInput.Nothing;
-        private MenuChoice m_choice = MenuChoice.Play;
+        [SerializeField] private List<MenuChoiceInfos> m_infos;
+        private int m_currentChoiceIndex = 0;
 
-        [SerializeField] private GameObject[] m_titles;
-        [SerializeField] private GameObject m_indicator;
-        [SerializeField] private Vector3 m_offsetIndicator = new Vector3(-5.0f, -1.0f, 0f);
+        private LastInput m_lastInput = LastInput.Nothing;
+
+
 
         private void Start()
         {
-            UpdateIndicator();
         }
 
         private void Update()
         {
-            if (Input.GetAxisRaw("Vertical") > 0)
+            if (Input.GetAxisRaw("Horizontal") > 0)
             {
                 if (m_lastInput != LastInput.Up)
                 {
-                    if (m_choice == MenuChoice.Quit)
-                        m_choice = MenuChoice.Play;
-                    else
-                        m_choice++;
+                    m_currentChoiceIndex++;
 
-                    UpdateIndicator();
+                    if (m_currentChoiceIndex >= m_infos.Count)
+                        m_currentChoiceIndex = 0;
+
                     m_lastInput = LastInput.Up;
                 }
             }
-            else if (Input.GetAxisRaw("Vertical") < 0)
+            else if (Input.GetAxisRaw("Horizontal") < 0)
             {
                 if (m_lastInput != LastInput.Down)
                 {
-                    if (m_choice == MenuChoice.Play)
-                        m_choice = MenuChoice.Quit;
-                    else
-                        m_choice--;
+                    m_currentChoiceIndex--;
 
-                    UpdateIndicator();
+                    if (m_currentChoiceIndex < 0)
+                        m_currentChoiceIndex = m_infos.Count - 1;
+
                     m_lastInput = LastInput.Down;
                 }
             }
@@ -66,26 +75,22 @@ namespace LD43
 
             if (Input.GetButtonDown("Submit"))
                 Execute();
-        }
 
-        private void UpdateIndicator()
-        {
-            if (m_titles != null)
+            for (int i = 0; i < m_infos.Count; i++)
             {
-                for (int i = 0; i < m_titles.Length; i++)
-                {
-                    if (i == (int)m_choice)
-                        m_indicator.transform.position = new Vector3(m_offsetIndicator.x, m_titles[i].transform.position.y + m_offsetIndicator.y, 0f);
-                }
+                m_infos[i].Renderer.sprite = i == m_currentChoiceIndex ? m_infos[i].HoverSprite : m_infos[i].DefaultSprite;
             }
         }
 
         private void Execute()
         {
-            switch (m_choice)
+            switch (m_infos[m_currentChoiceIndex].Type)
             {
                 case MenuChoice.Play:
                     GameManager.NextLevel();
+                    break;
+                case MenuChoice.Credit:
+                    GameManager.NextLevel(100); // credit will probably be the last scene
                     break;
                 case MenuChoice.Quit:
                     Application.Quit();
@@ -94,5 +99,20 @@ namespace LD43
                     break;
             }
         }
-    } 
+
+        IEnumerator ExecuteAfterSeconds(float seconds, int sceneToLoad = -1)
+        {
+            m_infos[m_currentChoiceIndex].Renderer.sprite = m_infos[m_currentChoiceIndex].SelectedSprite;
+            yield return new WaitForSeconds(seconds);
+
+            if (sceneToLoad == -2)
+                Application.Quit();
+            else if (sceneToLoad == -1)
+                GameManager.NextLevel();
+            else
+                GameManager.NextLevel(sceneToLoad);
+
+        }
+
+    }
 }
