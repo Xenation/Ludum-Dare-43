@@ -95,7 +95,7 @@ namespace LD43 {
         }
 
 		public void NextCharacter() {
-            if (GameManager.DialogController.CharactersDisplaying == 0)
+            if (DialogController.I.CharactersDisplaying == 0)
             {
                 if (m_changeCharacterSound)
                     m_changeCharacterSound.Play();

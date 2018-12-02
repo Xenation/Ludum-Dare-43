@@ -109,7 +109,7 @@ namespace LD43 {
 			procManager.UpdateProcesses(Time.deltaTime);
 			if (isDead) return;
 
-			if (isActive && GameManager.DialogController.CharactersDisplaying == 0) {
+			if (isActive && DialogController.I.CharactersDisplaying == 0) {
 				// Input
 				inputHorizVel = Input.GetAxisRaw("Horizontal");
 				// Look Side
