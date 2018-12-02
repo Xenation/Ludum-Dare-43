@@ -112,6 +112,8 @@ namespace LD43
                     SoundHelper.I.StopWithFade(m_instance.m_introMusic, 0.0f, 1.0f);
                 if (m_instance.m_loopMusic)
                     SoundHelper.I.StopWithFade(m_instance.m_loopMusic, 0.0f, 1.0f);
+                if (m_instance.m_endingMusic)
+                    SoundHelper.I.StopWithFade(m_instance.m_endingMusic, 0.0f, 1.0f);
             }
             else if (m_instance.m_currentIndexScene == 1)
             {
@@ -119,6 +121,8 @@ namespace LD43
                 {
                     if (m_instance.m_menuMusic)
                         SoundHelper.I.StopWithFade(m_instance.m_menuMusic, 0.0f, 1.0f);
+                    if (m_instance.m_endingMusic)
+                        SoundHelper.I.StopWithFade(m_instance.m_endingMusic, 0.0f, 1.0f);
 
                     m_instance.StartCoroutine(m_instance.PlayGameMusic());
                 }
@@ -156,7 +160,7 @@ namespace LD43
                 current += Time.deltaTime;
                 if (m_fadeBackground)
                 {
-                    float alpha = Mathf.Lerp(start, end, current);
+                    float alpha = Mathf.Lerp(start, end, current/m_fadeTime);
                     m_fadeBackground.color = new Color(m_fadeBackground.color.r, m_fadeBackground.color.g, m_fadeBackground.color.b, alpha);
                 }
 
@@ -175,9 +179,24 @@ namespace LD43
         [SerializeField] private AudioSource m_menuMusic;
         [SerializeField] private AudioSource m_introMusic;
         [SerializeField] private AudioSource m_loopMusic;
+        [SerializeField] private AudioSource m_endingMusic;
 
         private bool m_wantToStopGameMusic = false;
         private bool m_gameMusicRunning = false;
+
+        public static void PlayEndingMusic()
+        {
+            m_instance.m_wantToStopGameMusic = true;
+            if (m_instance.m_introMusic)
+                SoundHelper.I.StopWithFade(m_instance.m_introMusic, 0.0f, 1.0f);
+            if (m_instance.m_loopMusic)
+                SoundHelper.I.StopWithFade(m_instance.m_loopMusic, 0.0f, 1.0f);
+            if (m_instance.m_menuMusic)
+                SoundHelper.I.StopWithFade(m_instance.m_menuMusic, 0.0f, 1.0f);
+
+            if (m_instance.m_endingMusic)
+                m_instance.m_endingMusic.Play();
+        }
 
         IEnumerator PlayGameMusic()
         {
