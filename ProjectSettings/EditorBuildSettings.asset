@@ -14,7 +14,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Test/Suliac_Test 1.unity
     guid: 106cb6b2cf5d9344190ccfd2dbd563e1
-  - enabled: 1
-    path: Assets/Scenes/Test/Suliac_Test 2.unity
-    guid: f0756917ece6d894799383524707559d
   m_configObjects: {}

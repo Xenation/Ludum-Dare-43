@@ -65,13 +65,15 @@ namespace LD43
             if (open)
             {
                 m_state = ActivableState.Openning;
-                m_activateSound.Play();
+                if (m_activateSound)
+                    m_activateSound.Play();
                 yield return new WaitForSeconds(m_animOpenDelaySeconds);
             }
             else
             {
                 m_state = ActivableState.Closing;
-                m_desactivateSound.Play();
+                if (m_desactivateSound)
+                    m_desactivateSound.Play();
                 yield return new WaitForSeconds(m_animCloseDelaySeconds);
             }
 

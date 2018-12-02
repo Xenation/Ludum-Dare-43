@@ -686,6 +686,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114425896646492124, guid: 7d108a158e2d49c408d01a6280d88e60,
+        type: 2}
+      propertyPath: m_levelNames.Array.size
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4060576779623614, guid: 7d108a158e2d49c408d01a6280d88e60, type: 2}
       propertyPath: m_LocalPosition.x
       value: 990.3048
@@ -722,6 +727,11 @@ Prefab:
         type: 2}
       propertyPath: m_LocalPosition.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114425896646492124, guid: 7d108a158e2d49c408d01a6280d88e60,
+        type: 2}
+      propertyPath: m_levelNames.Array.data[3]
+      value: Suliac_Test 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d108a158e2d49c408d01a6280d88e60, type: 2}

@@ -85,6 +85,9 @@ namespace LD43
             else
                 m_instance.m_currentIndexScene = nextLevelIndex;
 
+            if (m_instance.m_currentIndexScene >= LevelsNames.Count)
+                m_instance.m_currentIndexScene = 0;
+
             if (m_instance.m_currentIndexScene == 0) // => menu
             {
                 m_instance.m_menuMusic.Play();
@@ -101,9 +104,6 @@ namespace LD43
                     m_instance.StartCoroutine(m_instance.PlayGameMusic());
                 }
             }
-
-            if (m_instance.m_currentIndexScene >= LevelsNames.Count)
-                m_instance.m_currentIndexScene = 0;
 
             m_instance.StartCoroutine(m_instance.FadeLevel(m_instance.m_fadeTime, true, true));
         }
@@ -201,6 +201,7 @@ namespace LD43
         [SerializeField, EnumFlags] private PlayerTypesFlag m_playerTypesToSpawn;
         private PlayerTypesFlag m_playersHereAtStart;
         public static PlayerTypesFlag PlayerTypesToSpawn { get { return m_instance.m_playerTypesToSpawn; } }
+        public static PlayerTypesFlag PlayerHereAtStart { get { return m_instance.m_playersHereAtStart; } }
         public static void ResetPlayerTypesToSpawn()
         {
             m_instance.m_playersHereAtStart = m_instance.m_playerTypesToSpawn;
