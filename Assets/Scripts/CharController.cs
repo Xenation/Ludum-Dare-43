@@ -193,6 +193,8 @@ namespace LD43 {
 			if (isDead) return;
 			CharactersManager.I.RemoveCharacter(this);
 			isDead = true;
+			animator.SetBool(isRunningId, false);
+			animator.SetBool(isJumpingId, false);
 			animator.SetBool(isDeadId, true);
 			transform.position = new Vector3(transform.position.x, layY, transform.position.z);
 			if (transform.localScale.x > 0) {

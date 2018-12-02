@@ -1162,7 +1162,6 @@ MonoBehaviour:
   - {fileID: 1808270180}
   - {fileID: 178897191}
   m_changeCharacterSound: {fileID: 0}
-  m_characterIndicatorOffset: 3
 --- !u!4 &669782737
 Transform:
   m_ObjectHideFlags: 0
