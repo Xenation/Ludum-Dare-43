@@ -38,6 +38,7 @@ namespace LD43 {
 		private Rigidbody2D rb;
 		private Collider2D col;
 		private Vector2 velocity = Vector2.zero;
+		private float inputHorizVel = 0f;
 		private Collider2D pushZone;
 		private ContactFilter2D pushZoneFilter;
 		private Collider2D landZone;
@@ -45,6 +46,9 @@ namespace LD43 {
 		private EdgeCollider2D platform;
 		private float height = 0f;
 		private float width = 0f;
+
+		private bool pushZoneActive = false;
+		private bool landZoneActive = false;
 
 		private List<SpriteRenderer> subRenderers;
 		private Material material;
@@ -101,20 +105,36 @@ namespace LD43 {
 		private void Update() {
 			procManager.UpdateProcesses(Time.deltaTime);
 			if (isDead) return;
-			Collider2D[] colliders = new Collider2D[4];
-			int colCount;
-			velocity.x = 0f;
 
 			if (isActive) {
 				// Input
-				velocity.x = Input.GetAxisRaw("Horizontal");
+				inputHorizVel = Input.GetAxisRaw("Horizontal");
 				// Look Side
-				if (velocity.x > 0) {
+				if (inputHorizVel > 0) {
 					transform.localScale = new Vector3(1f, 1f, 1f);
-				} else if (velocity.x < 0) {
+				} else if (inputHorizVel < 0) {
 					transform.localScale = new Vector3(-1f, 1f, 1f);
 				}
+				
+				// Jump
+				if (Input.GetButtonDown("Jump") && !inAir) {
+					rb.AddForce(Vector2.up * jumpVelocity, ForceMode2D.Impulse);
+					gravity = ascentGravity;
+					animator.SetBool(isJumpingId, true);
+				}
+				if (Input.GetButtonUp("Jump") && inAir && rb.velocity.y > 0f) {
+					gravity = coastGravity;
+				}
+			}
+		}
 
+		private void FixedUpdate() {
+			if (isDead) return;
+			Collider2D[] colliders = new Collider2D[4];
+			int colCount;
+			velocity.x = inputHorizVel;
+
+			if (isActive) {
 				// Pushable Object Check
 				colCount = pushZone.OverlapCollider(pushZoneFilter, colliders);
 				if (colCount == 0) { // no pushable
@@ -150,29 +170,13 @@ namespace LD43 {
 				}
 			}
 
-			if (isActive) {
-				// Jump
-				if (Input.GetButtonDown("Jump") && !inAir) {
-					rb.AddForce(Vector2.up * jumpVelocity, ForceMode2D.Impulse);
-					gravity = ascentGravity;
-					animator.SetBool(isJumpingId, true);
-				}
-				if (Input.GetButtonUp("Jump") && inAir && rb.velocity.y > 0f) {
-					gravity = coastGravity;
-				}
-			}
+			velocity.y = rb.velocity.y + gravity * Time.fixedDeltaTime;
 
 			// Gravity
-			if (prevVertVel > 0 && rb.velocity.y < 0) {
+			if (rb.velocity.y > 0 && velocity.y < 0) {
 				gravity = descentGravity;
 			}
 
-			prevVertVel = rb.velocity.y;
-		}
-
-		private void FixedUpdate() {
-			if (isDead) return;
-			velocity.y = rb.velocity.y + gravity * Time.fixedDeltaTime;
 			rb.velocity = velocity;
 		}
 
