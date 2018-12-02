@@ -38,9 +38,13 @@ namespace LD43
 
         private void Update()
         {
-            if (m_currentIndexScene > 0 && m_currentIndexScene < m_levelNames.Count && Input.GetButtonDown("Reset"))
+            if (m_currentIndexScene > 0 && m_currentIndexScene < m_levelNames.Count) // if we are on game level
             {
-                ResetLevel();
+                if (Input.GetButtonDown("Reset"))
+                    ResetLevel();
+
+                if (Input.GetButtonDown("HardReset"))
+                    HardResetLevel();
             }
         }
 
@@ -49,6 +53,13 @@ namespace LD43
             // reset
             m_instance.m_playerTypesToSpawn = m_instance.m_playersHereAtStart;
             NextLevel(m_instance.m_currentIndexScene);
+        }
+
+        public static void HardResetLevel()
+        {
+            // reset
+            m_instance.m_playerTypesToSpawn = (PlayerTypesFlag)31;
+            NextLevel(1);
         }
 
         // private DialogController m_dialogController;
