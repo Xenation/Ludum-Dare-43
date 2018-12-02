@@ -92,6 +92,10 @@ namespace LD43 {
 			isRunningId = Animator.StringToHash("isRunning");
 			isPushingId = Animator.StringToHash("isPushing");
 			isJumpingId = Animator.StringToHash("isJumping");
+
+			OverlayPosition overlayPositionComp = GetComponentInChildren<OverlayPosition>();
+			if (overlayPositionComp)
+				OverlayPosition = overlayPositionComp.gameObject;
 		}
 
 		private void Update() {
