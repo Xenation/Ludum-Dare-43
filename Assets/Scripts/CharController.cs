@@ -219,10 +219,11 @@ namespace LD43 {
 			animator.SetBool(isRunningId, false);
 			animator.SetBool(isJumpingId, false);
 			animator.SetBool(isDeadId, true);
-			transform.position = new Vector3(transform.position.x, layY, transform.position.z);
 			if (transform.localScale.x > 0) {
+				transform.position = new Vector3(transform.position.x - height / 2f, layY, transform.position.z);
 				transform.rotation = Quaternion.Euler(0f, 0f, -90f);
 			} else {
+				transform.position = new Vector3(transform.position.x + height / 2f, layY, transform.position.z);
 				transform.rotation = Quaternion.Euler(0f, 0f, 90f);
 			}
 			platform.transform.position = col.bounds.center + Vector3.up * (width / 2f);

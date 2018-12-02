@@ -40,6 +40,7 @@ GameObject:
   - component: {fileID: 82809961227284812}
   - component: {fileID: 61818260006511608}
   - component: {fileID: 95797534007089776}
+  - component: {fileID: 60574647185573480}
   m_Layer: 10
   m_Name: Leader
   m_TagString: Untagged
@@ -184,7 +185,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1259636387321666}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.94511, y: 3.6853347, z: 0}
+  m_LocalPosition: {x: 7.4548163, y: 0.65869516, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4130264757451936}
@@ -215,6 +216,36 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!60 &60574647185573480
+PolygonCollider2D:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1259636387321666}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 1}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.33, y: 0.93}
+      - {x: -0.33, y: 0.93}
+      - {x: -0.33, y: -0.84}
+      - {x: -0.21, y: -0.91}
+      - {x: 0.21, y: -0.91}
+      - {x: 0.33, y: -0.84}
 --- !u!61 &61289438921982472
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -305,8 +336,8 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -0.33700943, y: 0}
-  - {x: 0.3370099, y: 0}
+  - {x: -0.33, y: 0}
+  - {x: 0.33, y: 0}
 --- !u!82 &82809961227284812
 AudioSource:
   m_ObjectHideFlags: 1
@@ -440,6 +471,8 @@ MonoBehaviour:
   PlayerType: 0
   OverlayPosition: {fileID: 0}
   m_deadSound: {fileID: 82809961227284812}
+  m_jumpSound: {fileID: 0}
+  m_landSound: {fileID: 0}
   outlineAnimGradient:
     serializedVersion: 2
     key0: {r: 1, g: 0.7392711, b: 0, a: 0}
