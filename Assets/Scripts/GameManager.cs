@@ -30,7 +30,25 @@ namespace LD43
         {
             m_currentPlayerIndicator = Instantiate(m_playerIndicatorPrefab);
 
+            if (m_instance.m_menuMusic)
+                m_instance.m_menuMusic.Play();
+
             SceneManager.sceneLoaded += OnSceneLoaded;
+        }
+
+        private void Update()
+        {
+            if (m_currentIndexScene > 0 && m_currentIndexScene < m_levelNames.Count && Input.GetButtonDown("Reset"))
+            {
+                ResetLevel();
+            }
+        }
+
+        public static void ResetLevel()
+        {
+            // reset
+            m_instance.m_playerTypesToSpawn = m_instance.m_playersHereAtStart;
+            NextLevel(m_instance.m_currentIndexScene);
         }
 
         [SerializeField] private DialogController m_dialogController;
@@ -45,20 +63,44 @@ namespace LD43
         // -----------------------
         // SCENES MANAGEMENT
         // -----------------------
+
+        [Header("Scenes")]
         [SerializeField] private List<string> m_levelNames;
         public static List<string> LevelsNames { get { return m_instance.m_levelNames; } }
 
         [SerializeField] private int m_currentIndexScene = 0;
         [SerializeField] private float m_fadeTime = 1.0f;
         [SerializeField] private RawImage m_fadeBackground;
+
+        private string m_lastSceneName;
+        private string m_currentSceneName;
+
         public static void NextLevel(int nextLevelIndex = -1)
         {
             UpdatePlayerIndicator(null, 0f, false);
+            int lastIndex = m_instance.m_currentIndexScene;
 
             if (nextLevelIndex < 0)
                 m_instance.m_currentIndexScene++;
             else
                 m_instance.m_currentIndexScene = nextLevelIndex;
+
+            if (m_instance.m_currentIndexScene == 0) // => menu
+            {
+                m_instance.m_menuMusic.Play();
+                m_instance.m_wantToStopGameMusic = true;
+
+                SoundHelper.I.StopWithFade(m_instance.m_introMusic, 0.0f, 1.0f);
+                SoundHelper.I.StopWithFade(m_instance.m_loopMusic, 0.0f, 1.0f);
+            }
+            else if (m_instance.m_currentIndexScene == 1)
+            {
+                if (!m_instance.m_gameMusicRunning && lastIndex == 0)
+                {
+                    SoundHelper.I.StopWithFade(m_instance.m_menuMusic, 0.0f, 1.0f);
+                    m_instance.StartCoroutine(m_instance.PlayGameMusic());
+                }
+            }
 
             if (m_instance.m_currentIndexScene >= LevelsNames.Count)
                 m_instance.m_currentIndexScene = 0;
@@ -68,9 +110,12 @@ namespace LD43
 
         void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
+            m_currentSceneName = scene.name;
             //Debug.Log("OnSceneLoaded: " + scene.name);
             m_instance.StartCoroutine(m_instance.FadeLevel(m_instance.m_fadeTime, false, false));
-            m_instance.StartCoroutine(m_instance.DialogAfterSeconds(1.0f));
+
+            if (m_currentSceneName != m_lastSceneName)
+                m_instance.StartCoroutine(m_instance.DialogAfterSeconds(1.0f));
         }
 
         IEnumerator FadeLevel(float fadeTime, bool fadeIn, bool changeScene)
@@ -92,21 +137,55 @@ namespace LD43
             }
 
             if (changeScene)
+            {
+                m_lastSceneName = m_currentSceneName;
                 SceneManager.LoadScene(LevelsNames[m_instance.m_currentIndexScene], LoadSceneMode.Single);
+            }
             yield return null;
+        }
+
+        [Header("Music")]
+        [SerializeField] private AudioSource m_menuMusic;
+        [SerializeField] private AudioSource m_introMusic;
+        [SerializeField] private AudioSource m_loopMusic;
+
+        private bool m_wantToStopGameMusic = false;
+        private bool m_gameMusicRunning = false;
+
+        IEnumerator PlayGameMusic()
+        {
+            m_gameMusicRunning = true;
+            m_introMusic.Play();
+            yield return null;
+
+            while (m_introMusic.isPlaying)
+            {
+                if (m_wantToStopGameMusic)
+                {
+                    m_wantToStopGameMusic = false;
+                    m_gameMusicRunning = false;
+                    yield break;
+                }
+
+                yield return null;
+            }
+
+            m_gameMusicRunning = false;
+            m_wantToStopGameMusic = false;
+            m_loopMusic.Play();
         }
 
         // -----------------------
         // PLAYER MANAGEMENT
         // -----------------------
-
+        [Header("Player")]
         [SerializeField] private GameObject m_playerIndicatorPrefab;
         [SerializeField] private Vector3 m_playerIndicatorOffset = new Vector3(0f, 0f, 0f);
         private GameObject m_currentPlayerIndicator;
         public static GameObject PlayerIndicatorPrefab { get { return m_instance.m_playerIndicatorPrefab; } }
         public static void UpdatePlayerIndicator(CharController parent, float yOffset, bool display = true)
         {
-            if(!m_instance.m_currentPlayerIndicator)
+            if (!m_instance.m_currentPlayerIndicator)
                 m_instance.m_currentPlayerIndicator = Instantiate(m_instance.m_playerIndicatorPrefab);
 
             if (parent)
@@ -119,8 +198,13 @@ namespace LD43
         }
 
         [SerializeField, EnumFlags] private PlayerTypesFlag m_playerTypesToSpawn;
+        private PlayerTypesFlag m_playersHereAtStart;
         public static PlayerTypesFlag PlayerTypesToSpawn { get { return m_instance.m_playerTypesToSpawn; } }
-        public static void ResetPlayerTypesToSpawn() { m_instance.m_playerTypesToSpawn = 0; }
+        public static void ResetPlayerTypesToSpawn()
+        {
+            m_instance.m_playersHereAtStart = m_instance.m_playerTypesToSpawn;
+            m_instance.m_playerTypesToSpawn = 0;
+        }
 
         public static void SavePlayerType(PlayerTypesFlag playerType) { m_instance.m_playerTypesToSpawn |= playerType; }
     }

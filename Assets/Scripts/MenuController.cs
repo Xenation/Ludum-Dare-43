@@ -107,13 +107,13 @@ namespace LD43
             switch (m_infos[m_currentChoiceIndex].Type)
             {
                 case MenuChoice.Play:
-                    GameManager.NextLevel();
+                    StartCoroutine(ExecuteAfterSeconds(1.0f));
                     break;
                 case MenuChoice.Credit:
-                    GameManager.NextLevel(100); // credit will probably be the last scene
+                    StartCoroutine(ExecuteAfterSeconds(1.0f, 100)); // credit will probably be the last scene
                     break;
                 case MenuChoice.Quit:
-                    Application.Quit();
+                    StartCoroutine(ExecuteAfterSeconds(1.0f, -2));
                     break;
                 default:
                     break;
@@ -131,6 +131,8 @@ namespace LD43
                 GameManager.NextLevel();
             else
                 GameManager.NextLevel(sceneToLoad);
+
+            yield return null;
 
         }
 

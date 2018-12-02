@@ -101,7 +101,7 @@ namespace LD43 {
 			procManager.UpdateProcesses(Time.deltaTime);
 			if (isDead) return;
 
-			if (isActive) {
+			if (isActive && GameManager.DialogController.CharactersDisplaying == 0) {
 				// Input
 				inputHorizVel = Input.GetAxisRaw("Horizontal");
 				// Look Side
@@ -188,6 +188,9 @@ namespace LD43 {
 
 		public void LayDead(float layY) {
 			if (isDead) return;
+            if (PlayerType == PlayerTypesFlag.Leader)
+                GameManager.ResetLevel();
+
 			CharactersManager.I.RemoveCharacter(this);
 			isDead = true;
 			transform.position = new Vector3(transform.position.x, layY, transform.position.z);

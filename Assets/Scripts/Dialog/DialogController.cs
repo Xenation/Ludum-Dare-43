@@ -36,6 +36,9 @@ namespace LD43
         private PlayerTypesFlag m_charactersDisplaying = 0;
         private Transform m_toFollow = null;
 
+        public PlayerTypesFlag CharactersDisplaying { get { return m_charactersDisplaying; } }
+
+
         private int m_currentIndex = -1;
 
         private bool m_isDisplayingText = false;
@@ -81,7 +84,7 @@ namespace LD43
                 if (m_currentIndex >= m_texts.Count || string.IsNullOrEmpty(m_texts[m_currentIndex].Content))
                     ChangeUIVisibility(0);
                 else
-                    ChangeUIVisibility(m_texts[m_currentIndex].Character, m_texts[m_currentIndex].Content, m_names.FirstOrDefault(n => n.Character == m_texts[m_currentIndex].Character).Name ?? ""); 
+                    ChangeUIVisibility(m_texts[m_currentIndex].Character, m_texts[m_currentIndex].Content, m_names.FirstOrDefault(n => n.Character == m_texts[m_currentIndex].Character).Name ?? "");
             }
 
         }

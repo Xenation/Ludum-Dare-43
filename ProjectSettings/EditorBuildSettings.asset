@@ -13,8 +13,8 @@ EditorBuildSettings:
     guid: df13e5c9e13ad5d4f89f657cf5704551
   - enabled: 1
     path: Assets/Scenes/Test/Suliac_Test 1.unity
-    guid: 91ce9639791035a429fd1dadfe049d74
+    guid: 106cb6b2cf5d9344190ccfd2dbd563e1
   - enabled: 1
     path: Assets/Scenes/Test/Suliac_Test 2.unity
-    guid: 8fe51f2931768354aa6a74305cb8e3e7
+    guid: f0756917ece6d894799383524707559d
   m_configObjects: {}
