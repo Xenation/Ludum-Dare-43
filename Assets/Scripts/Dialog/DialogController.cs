@@ -1,56 +1,121 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DialogController : MonoBehaviour {
-    [SerializeField, TextArea] private List<string> m_texts;
-
-    private TextMeshProUGUI m_dialogText;
-    private RawImage m_background;
-    private int m_currentIndex = -1;
-
-    private bool m_displayingUI = false;
-
-    private void Update()
+namespace LD43
+{
+    [Serializable]
+    public struct DialogInfos
     {
-        if (m_displayingUI && Input.GetButtonDown("Jump"))
-            NextText();
-
+        [TextArea] public string Content;
+        public PlayerTypesFlag Character;
     }
 
-    private void Start()
+    public class DialogController : MonoBehaviour
     {
-        m_dialogText = GetComponentInChildren<TextMeshProUGUI>();
-        m_background = GetComponentInChildren<RawImage>();
+        [SerializeField] private List<DialogInfos> m_texts;
+        [SerializeField] private GameObject m_bubblePrefab;
+        [SerializeField] private Vector3 m_bubbleOffset = new Vector3(0f, 1f, -0.5f);
+        [SerializeField] private float m_timeBetweenLetters = 0.1f;
 
-        ChangeUIVisibility(false);
-    }
+        private GameObject m_currentBubble;
+        private TextMeshPro m_bubbleText;
+        private PlayerTypesFlag m_charactersDisplaying = 0;
 
-    public void NextText()
-    {
-        m_currentIndex++;
-        if (m_currentIndex >= m_texts.Count || string.IsNullOrEmpty(m_texts[m_currentIndex]))
+        private int m_currentIndex = -1;
+
+        private bool m_isDisplayingText = false;
+        private bool m_wantToStopDisplaying = false;
+
+        private void Update()
         {
-            ChangeUIVisibility(false);
+            if (m_charactersDisplaying > 0 && Input.anyKeyDown)
+            {
+                if (m_isDisplayingText)
+                {
+                    m_wantToStopDisplaying = true;
+                }
+                else
+                {
+                    NextText();
+                }
+            }
         }
-        else
+
+        private void Start()
         {
-            if (!m_displayingUI)
-                ChangeUIVisibility(true);
+            m_currentBubble = Instantiate(m_bubblePrefab);
+            m_bubbleText = m_currentBubble.GetComponentInChildren<TextMeshPro>();
+            m_bubbleText.renderer.sortingOrder = 100;
+            ChangeUIVisibility(0);
+        }
 
-            m_dialogText.text = m_texts[m_currentIndex];
+        public void NextText()
+        {
+            m_currentIndex++;
+            if (m_currentIndex >= m_texts.Count || string.IsNullOrEmpty(m_texts[m_currentIndex].Content))
+                ChangeUIVisibility(0);
+            else
+                ChangeUIVisibility(m_texts[m_currentIndex].Character, m_texts[m_currentIndex].Content);
+
+        }
+
+        private void ChangeUIVisibility(PlayerTypesFlag charactersDisplaying, string text = "")
+        {
+            if (charactersDisplaying == 0)
+            {
+                m_currentBubble.SetActive(false);
+                return;
+            }
+
+            CharController controller = CharactersManager.I.GetCharacterWithType(charactersDisplaying);
+            if (controller)
+            {
+                if (!m_currentBubble.activeSelf)
+                    m_currentBubble.SetActive(true);
+
+                m_currentBubble.transform.parent = controller.OverlayPosition.transform;
+                m_currentBubble.transform.localPosition = m_bubbleOffset;
+
+                StopAllCoroutines();
+                StartCoroutine(DisplayText(text, m_timeBetweenLetters));
+
+                m_charactersDisplaying = charactersDisplaying;
+            }
+            else
+            {
+                NextText();
+            }
+
+        }
+
+        IEnumerator DisplayText(string text, float timeBetweenLetter)
+        {
+            m_isDisplayingText = true;
+            string currentDisplay = "";
+            for (int i = 0; i < text.Length; i++)
+            {
+                if(m_wantToStopDisplaying)
+                {
+                    m_bubbleText.text = text;
+                    m_isDisplayingText = false;
+                    m_wantToStopDisplaying = false;
+                     yield break;
+                }
+
+                currentDisplay += text[i];
+                m_bubbleText.text = currentDisplay;
+                yield return new WaitForSeconds(timeBetweenLetter);
+            }
+
+            m_bubbleText.text = text;
+            m_isDisplayingText = false;
+            m_wantToStopDisplaying = false;
+            yield return null;
         }
 
     }
-
-    private void ChangeUIVisibility(bool isVisible)
-    {
-        m_displayingUI = isVisible;
-
-        m_dialogText.enabled = m_displayingUI;
-        m_background.enabled = m_displayingUI;
-    }
-
 }

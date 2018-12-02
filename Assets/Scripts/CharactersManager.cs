@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -96,6 +97,11 @@ namespace LD43 {
 				characters[activeCharacter].Activate();
 			}
 		}
+
+        public CharController GetCharacterWithType(PlayerTypesFlag type)
+        {
+            return characters.FirstOrDefault(c => (c.PlayerType & type) == type);
+        }
 
 		public void NextCharacter() {
             if (m_changeCharacterSound)

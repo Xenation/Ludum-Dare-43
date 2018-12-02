@@ -31,6 +31,12 @@ namespace LD43
         [SerializeField] private DialogController m_dialogController;
         public static DialogController DialogController { get { return m_instance.m_dialogController; } }
 
+        IEnumerator DialogAfterSeconds(float waitingTime = 0.0f)
+        {
+            yield return new WaitForSeconds(waitingTime);
+            m_instance.m_dialogController.NextText();
+        }
+
         // -----------------------
         // SCENES MANAGEMENT
         // -----------------------
@@ -55,6 +61,7 @@ namespace LD43
         {
             //Debug.Log("OnSceneLoaded: " + scene.name);
             m_instance.StartCoroutine(m_instance.FadeLevel(m_instance.m_fadeTime, false, false));
+            m_instance.StartCoroutine(m_instance.DialogAfterSeconds(1.0f));
         }
 
         IEnumerator FadeLevel(float fadeTime, bool fadeIn, bool changeScene)

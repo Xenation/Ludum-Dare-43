@@ -14,7 +14,7 @@ namespace LD43 {
 		public PhysicsMaterial2D matDead;
 
         public PlayerTypesFlag PlayerType;
-
+        public GameObject OverlayPosition;
         [SerializeField] private AudioSource m_deadSound;
 
 		private float gravity = 1f;
@@ -62,7 +62,14 @@ namespace LD43 {
 			gravity = descentGravity;
 		}
 
-		private void Update() {
+        private void Start()
+        {
+            OverlayPosition overlayPositionComp = GetComponentInChildren<OverlayPosition>();
+            if (overlayPositionComp)
+                OverlayPosition = overlayPositionComp.gameObject;
+        }
+
+        private void Update() {
 			if (isDead) return;
 			Collider2D[] colliders = new Collider2D[4];
 			int colCount;
