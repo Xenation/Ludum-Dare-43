@@ -463,7 +463,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 31.65
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -471,7 +471,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &722285397
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -801,6 +801,10 @@ Prefab:
     - target: {fileID: 224249871835899462, guid: 7d108a158e2d49c408d01a6280d88e60,
         type: 2}
       propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1309314154672790, guid: 7d108a158e2d49c408d01a6280d88e60, type: 2}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
