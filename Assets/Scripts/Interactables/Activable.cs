@@ -38,7 +38,7 @@ namespace LD43
             {
                 StopAllCoroutines();
 
-                if (m_state == ActivableState.Closing)
+                if (m_state == ActivableState.Closing && m_desactivateSound)
                     SoundHelper.I.StopWithFade(m_desactivateSound);
 
                 StartCoroutine(AnimateActivable(m_animOpenSeconds, true));
@@ -52,7 +52,7 @@ namespace LD43
             {
                 StopAllCoroutines();
 
-                if (m_state == ActivableState.Openning)
+                if (m_state == ActivableState.Openning && m_activateSound)
                     SoundHelper.I.StopWithFade(m_activateSound);
 
                 StartCoroutine(AnimateActivable(m_animCloseSeconds, false));

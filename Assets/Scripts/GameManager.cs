@@ -120,7 +120,7 @@ namespace LD43
             m_instance.StartCoroutine(m_instance.FadeLevel(m_instance.m_fadeTime, false, false));
 
             if (m_currentSceneName != m_lastSceneName)
-                m_instance.StartCoroutine(m_instance.DialogAfterSeconds(1.0f));
+                m_instance.StartCoroutine(m_instance.DialogAfterSeconds(0.0f));
         }
 
         IEnumerator FadeLevel(float fadeTime, bool fadeIn, bool changeScene)

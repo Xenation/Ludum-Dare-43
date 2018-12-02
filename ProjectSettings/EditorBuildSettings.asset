@@ -6,12 +6,18 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Test/Menu.unity
-    guid: 5d6d920d5d8924e448abd0d8ec44865b
+    path: Assets/Scenes/Test/Eva_Level1.unity
+    guid: ad2bf1fd6d3df41e18d92f4ab35d44cd
   - enabled: 1
-    path: Assets/Scenes/Test/Suliac_Test.unity
-    guid: df13e5c9e13ad5d4f89f657cf5704551
+    path: Assets/Scenes/Test/Eva_Level2.unity
+    guid: e6ae42b9700464d0aa6f7b29b637c905
   - enabled: 1
-    path: Assets/Scenes/Test/Suliac_Test 1.unity
-    guid: 106cb6b2cf5d9344190ccfd2dbd563e1
+    path: Assets/Scenes/Test/Eva_Level3.unity
+    guid: fd3fafb742be24e3181f492582ddef10
+  - enabled: 1
+    path: Assets/Scenes/Test/Eva_Level4.unity
+    guid: 78600f87ca87a47ddb589a60f60ab0f6
+  - enabled: 1
+    path: Assets/Scenes/Test/Eva_Level5.unity
+    guid: f227b6b49bacc42bb8ef9dbf271e9bb0
   m_configObjects: {}
