@@ -29,13 +29,18 @@ namespace LD43 {
 
         [SerializeField] private List<Transform> m_startPositions = new List<Transform>();
         [SerializeField] private AudioSource m_changeCharacterSound;
+
+        [SerializeField] private float m_characterIndicatorOffset = 3f;
+
         private int activeCharacter = 0;
 
 
         private void Start() {
             Init();
+
 			characters[activeCharacter].Activate();
-		}
+            UpdateIndicatorPosition();
+        }
         
         private void Init()
         {
@@ -64,11 +69,17 @@ namespace LD43 {
             GameManager.ResetPlayerTypesToSpawn(); // set types available to 0
         }
 
+        private void UpdateIndicatorPosition()
+        {
+            GameManager.UpdatePlayerIndicator(characters[activeCharacter].transform, m_characterIndicatorOffset);
+        }
+
         private void Update() {
 			if (characters.Count > 1) {
 				if (Input.GetButtonDown("NextCharacter")) {
 					NextCharacter();
-				}
+                    UpdateIndicatorPosition();
+                }
 			}
 		}
 

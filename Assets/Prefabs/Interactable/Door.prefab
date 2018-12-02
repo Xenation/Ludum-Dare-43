@@ -406,5 +406,7 @@ MonoBehaviour:
   m_endPosition: {fileID: 4401531625043560}
   m_animOpenSeconds: 1
   m_animCloseSeconds: 3
+  m_animOpenDelaySeconds: 0
+  m_animCloseDelaySeconds: 0.5
   m_activateSound: {fileID: 82564388971381692}
   m_desactivateSound: {fileID: 82897479438736352}
