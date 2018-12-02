@@ -72,7 +72,7 @@ namespace LD43 {
 
         private void UpdateIndicatorPosition()
         {
-            GameManager.UpdatePlayerIndicator(characters[activeCharacter].transform, m_characterIndicatorOffset);
+            GameManager.UpdatePlayerIndicator(characters[activeCharacter], m_characterIndicatorOffset);
         }
 
         private void Update() {

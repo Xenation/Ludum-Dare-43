@@ -60,15 +60,12 @@ namespace LD43 {
 			jumpVelocity = (2f * jumpHeight * jumpAirSpeed) / ascentDist;
 			prevVertVel = rb.velocity.y;
 			gravity = descentGravity;
-		}
 
-        private void Start()
-        {
             OverlayPosition overlayPositionComp = GetComponentInChildren<OverlayPosition>();
             if (overlayPositionComp)
                 OverlayPosition = overlayPositionComp.gameObject;
         }
-
+        
         private void Update() {
 			if (isDead) return;
 			Collider2D[] colliders = new Collider2D[4];

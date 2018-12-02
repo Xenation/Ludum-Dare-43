@@ -25,6 +25,7 @@ namespace LD43
 
         private void Init()
         {
+            m_currentPlayerIndicator = Instantiate(m_playerIndicatorPrefab);
             SceneManager.sceneLoaded += OnSceneLoaded;
         }
 
@@ -48,7 +49,7 @@ namespace LD43
         [SerializeField] private RawImage m_fadeBackground;
         public static void NextLevel()
         {
-            UpdatePlayerIndicator(m_instance.transform, 0f, false);
+            UpdatePlayerIndicator(null, 0f, false);
 
             m_instance.m_currentIndexScene++;
             if (m_instance.m_currentIndexScene >= LevelsNames.Count)
@@ -90,13 +91,20 @@ namespace LD43
         // -----------------------
         // PLAYER MANAGEMENT
         // -----------------------
-        [SerializeField] private GameObject m_playerIndicator;
-        public static GameObject PlayerIndicator { get { return m_instance.m_playerIndicator; } }
-        public static void UpdatePlayerIndicator(Transform parent, float yOffset, bool display = true)
+
+        [SerializeField] private GameObject m_playerIndicatorPrefab;
+        [SerializeField] private Vector3 m_playerIndicatorOffset = new Vector3(0f, 0f, 0f);
+        private GameObject m_currentPlayerIndicator;
+        public static GameObject PlayerIndicatorPrefab { get { return m_instance.m_playerIndicatorPrefab; } }
+        public static void UpdatePlayerIndicator(CharController parent, float yOffset, bool display = true)
         {
-            PlayerIndicator.transform.parent = parent;
-            PlayerIndicator.transform.localPosition = new Vector3(0f, yOffset, 0f);
-            PlayerIndicator.SetActive(display);
+            if (parent)
+            {
+                m_instance.m_currentPlayerIndicator.transform.parent = parent.OverlayPosition.transform;
+                m_instance.m_currentPlayerIndicator.transform.localPosition = m_instance.m_playerIndicatorOffset;
+            }
+
+            m_instance.m_currentPlayerIndicator.SetActive(display);
         }
 
         [SerializeField, EnumFlags] private PlayerTypesFlag m_playerTypesToSpawn;
