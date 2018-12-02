@@ -184,7 +184,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1259636387321666}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.302484, y: 0.8181033, z: 0}
+  m_LocalPosition: {x: -5.94511, y: 3.6853347, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4130264757451936}
@@ -277,7 +277,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.035164714, y: 0}
+  m_Offset: {x: 0.0011668205, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -288,7 +288,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.6110785, y: 0.15}
+  m_Size: {x: 0.6514473, y: 0.15}
   m_EdgeRadius: 0
 --- !u!68 &68549583012067916
 EdgeCollider2D:
@@ -442,33 +442,33 @@ MonoBehaviour:
   m_deadSound: {fileID: 82809961227284812}
   outlineAnimGradient:
     serializedVersion: 2
-    key0: {r: 1, g: 1, b: 1, a: 1}
-    key1: {r: 1, g: 1, b: 1, a: 1}
-    key2: {r: 0, g: 0, b: 0, a: 0}
+    key0: {r: 1, g: 0.7392711, b: 0, a: 0}
+    key1: {r: 1, g: 0.16412601, b: 0, a: 1}
+    key2: {r: 1, g: 0, b: 0, a: 1}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
     key5: {r: 0, g: 0, b: 0, a: 0}
     key6: {r: 0, g: 0, b: 0, a: 0}
     key7: {r: 0, g: 0, b: 0, a: 0}
-    ctime0: 0
-    ctime1: 65535
-    ctime2: 0
+    ctime0: 13493
+    ctime1: 31804
+    ctime2: 65535
     ctime3: 0
     ctime4: 0
     ctime5: 0
     ctime6: 0
     ctime7: 0
     atime0: 0
-    atime1: 65535
-    atime2: 0
-    atime3: 0
+    atime1: 12529
+    atime2: 32768
+    atime3: 65535
     atime4: 0
     atime5: 0
     atime6: 0
     atime7: 0
     m_Mode: 0
-    m_NumColorKeys: 2
-    m_NumAlphaKeys: 2
+    m_NumColorKeys: 3
+    m_NumAlphaKeys: 4
   outlineAnimDuration: 1
   animator: {fileID: 0}
 --- !u!114 &114748160418468538

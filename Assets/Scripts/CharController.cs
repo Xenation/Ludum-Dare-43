@@ -27,6 +27,7 @@ namespace LD43 {
 		private int isRunningId;
 		private int isPushingId;
 		private int isJumpingId;
+		private int isDeadId;
 
 		private float gravity = 1f;
 		private float ascentGravity = 1f;
@@ -80,7 +81,10 @@ namespace LD43 {
 			material = new Material(Shader.Find("Custom/SpriteOutline"));
 			material.SetColor("_OutlineColor", Color.clear);
 			foreach (SpriteRenderer rend in subRenderers) {
-				rend.sharedMaterial = material;
+				List<Material> sharedMats = new List<Material>();
+				rend.GetSharedMaterials(sharedMats);
+				sharedMats.Add(material);
+				rend.sharedMaterials = sharedMats.ToArray();
 			}
 			procManager = new ProcessManager();
 
@@ -94,6 +98,7 @@ namespace LD43 {
 			isRunningId = Animator.StringToHash("isRunning");
 			isPushingId = Animator.StringToHash("isPushing");
 			isJumpingId = Animator.StringToHash("isJumping");
+			isDeadId = Animator.StringToHash("isDead");
 
 			OverlayPosition overlayPositionComp = GetComponentInChildren<OverlayPosition>();
 			if (overlayPositionComp)
@@ -211,6 +216,9 @@ namespace LD43 {
 
 			CharactersManager.I.RemoveCharacter(this);
 			isDead = true;
+			animator.SetBool(isRunningId, false);
+			animator.SetBool(isJumpingId, false);
+			animator.SetBool(isDeadId, true);
 			transform.position = new Vector3(transform.position.x, layY, transform.position.z);
 			if (transform.localScale.x > 0) {
 				transform.rotation = Quaternion.Euler(0f, 0f, -90f);
