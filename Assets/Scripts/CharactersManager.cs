@@ -97,13 +97,16 @@ namespace LD43 {
         }
 
 		public void NextCharacter() {
-            if (m_changeCharacterSound)
-                m_changeCharacterSound.Play();
+            if (GameManager.DialogController.CharactersDisplaying == 0)
+            {
+                if (m_changeCharacterSound)
+                    m_changeCharacterSound.Play();
 
-			characters[activeCharacter].Desactivate();
-			activeCharacter++;
-			activeCharacter = activeCharacter % characters.Count;
-			characters[activeCharacter].Activate();
+                characters[activeCharacter].Desactivate();
+                activeCharacter++;
+                activeCharacter = activeCharacter % characters.Count;
+                characters[activeCharacter].Activate();
+            }
 		}
 
         public CharController GetCurrentController()

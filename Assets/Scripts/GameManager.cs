@@ -90,17 +90,22 @@ namespace LD43
 
             if (m_instance.m_currentIndexScene == 0) // => menu
             {
-                m_instance.m_menuMusic.Play();
-                m_instance.m_wantToStopGameMusic = true;
+                if (m_instance.m_menuMusic)
+                    m_instance.m_menuMusic.Play();
 
-                SoundHelper.I.StopWithFade(m_instance.m_introMusic, 0.0f, 1.0f);
-                SoundHelper.I.StopWithFade(m_instance.m_loopMusic, 0.0f, 1.0f);
+                m_instance.m_wantToStopGameMusic = true;
+                if (m_instance.m_introMusic)
+                    SoundHelper.I.StopWithFade(m_instance.m_introMusic, 0.0f, 1.0f);
+                if (m_instance.m_loopMusic)
+                    SoundHelper.I.StopWithFade(m_instance.m_loopMusic, 0.0f, 1.0f);
             }
             else if (m_instance.m_currentIndexScene == 1)
             {
                 if (!m_instance.m_gameMusicRunning && lastIndex == 0)
                 {
-                    SoundHelper.I.StopWithFade(m_instance.m_menuMusic, 0.0f, 1.0f);
+                    if (m_instance.m_menuMusic)
+                        SoundHelper.I.StopWithFade(m_instance.m_menuMusic, 0.0f, 1.0f);
+
                     m_instance.StartCoroutine(m_instance.PlayGameMusic());
                 }
             }
@@ -155,24 +160,30 @@ namespace LD43
         IEnumerator PlayGameMusic()
         {
             m_gameMusicRunning = true;
-            m_introMusic.Play();
-            yield return null;
-
-            while (m_introMusic.isPlaying)
+            if (m_introMusic)
             {
-                if (m_wantToStopGameMusic)
-                {
-                    m_wantToStopGameMusic = false;
-                    m_gameMusicRunning = false;
-                    yield break;
-                }
+                m_introMusic.Play();
 
                 yield return null;
+
+                while (m_introMusic.isPlaying)
+                {
+                    if (m_wantToStopGameMusic)
+                    {
+                        m_wantToStopGameMusic = false;
+                        m_gameMusicRunning = false;
+                        yield break;
+                    }
+
+                    yield return null;
+                }
             }
 
             m_gameMusicRunning = false;
             m_wantToStopGameMusic = false;
-            m_loopMusic.Play();
+
+            if (m_loopMusic)
+                m_loopMusic.Play();
         }
 
         // -----------------------
@@ -192,7 +203,7 @@ namespace LD43
             {
                 m_instance.m_currentPlayerIndicator.transform.parent = parent.OverlayPosition.transform;
                 m_instance.m_currentPlayerIndicator.transform.localPosition = m_instance.m_playerIndicatorOffset;
-				m_instance.m_currentPlayerIndicator.transform.rotation = Quaternion.identity;
+                m_instance.m_currentPlayerIndicator.transform.rotation = Quaternion.identity;
             }
 
             m_instance.m_currentPlayerIndicator.SetActive(display);
