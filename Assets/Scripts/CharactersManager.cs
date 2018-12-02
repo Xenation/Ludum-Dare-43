@@ -40,7 +40,6 @@ namespace LD43 {
             Init();
 
 			characters[activeCharacter].Activate();
-            UpdateIndicatorPosition();
         }
         
         private void Init()
@@ -70,16 +69,10 @@ namespace LD43 {
             GameManager.ResetPlayerTypesToSpawn(); // set types available to 0
         }
 
-        private void UpdateIndicatorPosition()
-        {
-            GameManager.UpdatePlayerIndicator(characters[activeCharacter], m_characterIndicatorOffset);
-        }
-
         private void Update() {
 			if (characters.Count > 1) {
 				if (Input.GetButtonDown("NextCharacter")) {
 					NextCharacter();
-                    UpdateIndicatorPosition();
                 }
 			}
 		}

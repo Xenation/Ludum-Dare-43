@@ -113,6 +113,7 @@ namespace LD43
             {
                 m_instance.m_currentPlayerIndicator.transform.parent = parent.OverlayPosition.transform;
                 m_instance.m_currentPlayerIndicator.transform.localPosition = m_instance.m_playerIndicatorOffset;
+				m_instance.m_currentPlayerIndicator.transform.rotation = Quaternion.identity;
             }
 
             m_instance.m_currentPlayerIndicator.SetActive(display);

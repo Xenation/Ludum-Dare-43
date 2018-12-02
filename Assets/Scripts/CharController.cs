@@ -178,6 +178,7 @@ namespace LD43 {
 
 		public void Activate() {
 			procManager.LaunchProcess(new OutlineAnimProcess(outlineAnimDuration, outlineAnimGradient, material));
+			GameManager.UpdatePlayerIndicator(this, height + .5f);
 			isActive = true;
 		}
 
