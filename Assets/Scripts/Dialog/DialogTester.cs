@@ -19,7 +19,7 @@ namespace LD43
         void Update()
         {
             if (Input.GetKeyDown(m_input))
-                GameManager.DialogController.NextText();
+                DialogController.I.NextText();
         }
     } 
 }

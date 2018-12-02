@@ -23,7 +23,7 @@ namespace LD43
         public PlayerTypesFlag Character;
     }
 
-    public class DialogController : MonoBehaviour
+    public class DialogController : Singleton<DialogController>
     {
         [SerializeField] private List<DialogInfos> m_texts;
         [SerializeField] private List<PlayersNames> m_names;

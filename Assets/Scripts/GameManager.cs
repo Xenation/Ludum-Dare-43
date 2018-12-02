@@ -51,13 +51,13 @@ namespace LD43
             NextLevel(m_instance.m_currentIndexScene);
         }
 
-        [SerializeField] private DialogController m_dialogController;
-        public static DialogController DialogController { get { return m_instance.m_dialogController; } }
+       // private DialogController m_dialogController;
+       // public static DialogController DialogController { get { return m_instance.m_dialogController; } }
 
         IEnumerator DialogAfterSeconds(float waitingTime = 0.0f)
         {
             yield return new WaitForSeconds(waitingTime);
-            m_instance.m_dialogController.NextText();
+            DialogController.I.NextText();
         }
 
         // -----------------------

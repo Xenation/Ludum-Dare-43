@@ -1073,17 +1073,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_texts:
   - Content: W-why do we keep going?
-    ContentWithEveryoneAlive: 
+    ContentWithEveryoneAlive: W-where is the exit?
     Character: 4
   - Content: "What the f*ck Glark? You abandon people when it\u2019s convenient for
       you?"
-    ContentWithEveryoneAlive: 
+    ContentWithEveryoneAlive: Well, it's obviously not here, isn'it?
     Character: 2
   - Content: Hodur, hodur hodur!
-    ContentWithEveryoneAlive: 
+    ContentWithEveryoneAlive: Hodur hodur.
     Character: 16
   - Content: "I\u2019LL NEVER FORGET YOUR SACRIFICE!"
-    ContentWithEveryoneAlive: 
+    ContentWithEveryoneAlive: COME ON! DON'T GIVE UP YET!
     Character: 8
   m_names:
   - Name: Glark
@@ -1100,6 +1100,8 @@ MonoBehaviour:
     type: 2}
   m_bubbleOffset: {x: 0, y: 1, z: -0.5}
   m_timeBetweenLetters: 0.04
+  m_soundChangeDialog: {fileID: 0}
+  m_soundDialog: {fileID: 0}
 --- !u!114 &469859249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1909,6 +1911,8 @@ MonoBehaviour:
   m_bubblePrefab: {fileID: 0}
   m_bubbleOffset: {x: 0, y: 1, z: -0.5}
   m_timeBetweenLetters: 0.1
+  m_soundChangeDialog: {fileID: 0}
+  m_soundDialog: {fileID: 0}
 --- !u!1001 &829577194
 Prefab:
   m_ObjectHideFlags: 0
@@ -3084,6 +3088,8 @@ MonoBehaviour:
   m_bubblePrefab: {fileID: 0}
   m_bubbleOffset: {x: 0, y: 1, z: -0.5}
   m_timeBetweenLetters: 0.1
+  m_soundChangeDialog: {fileID: 0}
+  m_soundDialog: {fileID: 0}
 --- !u!114 &1841585758 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114405287943442288, guid: 1318a79a9b427e346b3985eaf1132edb,
