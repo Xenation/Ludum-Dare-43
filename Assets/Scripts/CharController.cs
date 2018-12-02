@@ -78,7 +78,10 @@ namespace LD43 {
 			material = new Material(Shader.Find("Custom/SpriteOutline"));
 			material.SetColor("_OutlineColor", Color.clear);
 			foreach (SpriteRenderer rend in subRenderers) {
-				rend.sharedMaterial = material;
+				List<Material> sharedMats = new List<Material>();
+				rend.GetSharedMaterials(sharedMats);
+				sharedMats.Add(material);
+				rend.sharedMaterials = sharedMats.ToArray();
 			}
 			procManager = new ProcessManager();
 

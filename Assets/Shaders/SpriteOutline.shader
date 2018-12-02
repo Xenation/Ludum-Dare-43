@@ -45,18 +45,18 @@
 			
 			fixed4 frag (v2f i) : SV_Target {
 				// sample the texture
-				fixed4 col = tex2D(_MainTex, i.uv);
-				if (col.a < 0.001) {
+				float alpha = tex2D(_MainTex, i.uv).a;
+				if (alpha < 0.01) {
 					float2 down = float2(i.uv.x, i.uv.y - _MainTex_TexelSize.y);
 					float2 up = float2(i.uv.x, i.uv.y + _MainTex_TexelSize.y);
 					float2 right = float2(i.uv.x + _MainTex_TexelSize.x, i.uv.y);
 					float2 left = float2(i.uv.x - _MainTex_TexelSize.x, i.uv.y);
 					float alphaSum = tex2D(_MainTex, down).a + tex2D(_MainTex, up).a + tex2D(_MainTex, right).a + tex2D(_MainTex, left).a;
 					if (alphaSum != 0) {
-						col = _OutlineColor;
+						return _OutlineColor;
 					}
 				}
-				return col;
+				return fixed4(0, 0, 0, 0);
 			}
 			ENDCG
 		}
