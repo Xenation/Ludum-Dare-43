@@ -754,6 +754,11 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 553822210}
   m_Script: {fileID: 11500000, guid: ba99662dc1ee3114691ef2b45fb9cace, type: 3}
+--- !u!1 &1294191306 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1481487388503590, guid: 7d108a158e2d49c408d01a6280d88e60,
+    type: 2}
+  m_PrefabInternal: {fileID: 1392487485}
 --- !u!1001 &1392487485
 Prefab:
   m_ObjectHideFlags: 0
@@ -878,6 +883,7 @@ MonoBehaviour:
   - {fileID: 195423102}
   - {fileID: 356189771}
   m_changeCharacterSound: {fileID: 1424947250}
+  m_characterIndicatorOffset: 3
 --- !u!4 &1424947249
 Transform:
   m_ObjectHideFlags: 0
@@ -1069,6 +1075,11 @@ Prefab:
       propertyPath: m_startPositions.Array.data[1]
       value: 
       objectReference: {fileID: 356189771}
+    - target: {fileID: 114956059208230138, guid: ba7215512cef3894192a1c56852b4a0f,
+        type: 2}
+      propertyPath: m_characterIndicatorPrefab
+      value: 
+      objectReference: {fileID: 1294191306}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba7215512cef3894192a1c56852b4a0f, type: 2}
   m_IsPrefabAsset: 0

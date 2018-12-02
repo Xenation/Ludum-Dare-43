@@ -17,8 +17,14 @@ namespace LD43
         [SerializeField] private Transform m_model;
         [SerializeField] private Transform m_startPosition;
         [SerializeField] private Transform m_endPosition;
+
+        [Header("Anim time")]
         [SerializeField] private float m_animOpenSeconds = 1.0f;
         [SerializeField] private float m_animCloseSeconds = 3.0f;
+        [SerializeField] private float m_animOpenDelaySeconds = 0.0f;
+        [SerializeField] private float m_animCloseDelaySeconds = 0.5f;
+
+        [Header("Sound")]
         [SerializeField] private AudioSource m_activateSound;
         [SerializeField] private AudioSource m_desactivateSound;
 
@@ -60,11 +66,13 @@ namespace LD43
             {
                 m_state = ActivableState.Openning;
                 m_activateSound.Play();
+                yield return new WaitForSeconds(m_animOpenDelaySeconds);
             }
             else
             {
                 m_state = ActivableState.Closing;
                 m_desactivateSound.Play();
+                yield return new WaitForSeconds(m_animCloseDelaySeconds);
             }
 
             bool finishAnim = false;

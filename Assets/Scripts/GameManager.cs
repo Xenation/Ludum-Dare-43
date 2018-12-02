@@ -42,6 +42,8 @@ namespace LD43
         [SerializeField] private RawImage m_fadeBackground;
         public static void NextLevel()
         {
+            UpdatePlayerIndicator(m_instance.transform, 0f, false);
+
             m_instance.m_currentIndexScene++;
             if (m_instance.m_currentIndexScene >= LevelsNames.Count)
                 m_instance.m_currentIndexScene = 0;
@@ -81,6 +83,15 @@ namespace LD43
         // -----------------------
         // PLAYER MANAGEMENT
         // -----------------------
+        [SerializeField] private GameObject m_playerIndicator;
+        public static GameObject PlayerIndicator { get { return m_instance.m_playerIndicator; } }
+        public static void UpdatePlayerIndicator(Transform parent, float yOffset, bool display = true)
+        {
+            PlayerIndicator.transform.parent = parent;
+            PlayerIndicator.transform.localPosition = new Vector3(0f, yOffset, 0f);
+            PlayerIndicator.SetActive(display);
+        }
+
         [SerializeField, EnumFlags] private PlayerTypesFlag m_playerTypesToSpawn;
         public static PlayerTypesFlag PlayerTypesToSpawn { get { return m_instance.m_playerTypesToSpawn; } }
         public static void ResetPlayerTypesToSpawn() { m_instance.m_playerTypesToSpawn = 0; }
