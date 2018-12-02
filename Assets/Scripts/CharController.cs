@@ -64,8 +64,8 @@ namespace LD43 {
 			width = col.bounds.extents.x * 2f;
 
 			rb.gravityScale = 0f;
-			float ascentDist = jumpDistance * 0.666f;
-			float descentDist = jumpDistance * 0.333f;
+			float ascentDist = jumpDistance * 0.6666666f;
+			float descentDist = jumpDistance * 0.3333333f;
 			ascentGravity = (-2f * jumpHeight * jumpAirSpeed * jumpAirSpeed) / (ascentDist * ascentDist);
 			descentGravity = (-2f * jumpHeight * jumpAirSpeed * jumpAirSpeed) / (descentDist * descentDist);
 			coastGravity = descentGravity;
@@ -115,14 +115,13 @@ namespace LD43 {
 				if (Input.GetButtonDown("Jump") && !inAir) {
 					rb.AddForce(Vector2.up * jumpVelocity, ForceMode2D.Impulse);
 					gravity = ascentGravity;
-					animator.SetBool(isJumpingId, true);
 				}
 				if (Input.GetButtonUp("Jump") && inAir && rb.velocity.y > 0f) {
 					gravity = coastGravity;
 				}
 			}
 		}
-
+		
 		private void FixedUpdate() {
 			if (isDead) return;
 			Collider2D[] colliders = new Collider2D[4];
@@ -164,6 +163,9 @@ namespace LD43 {
 					animator.SetBool(isJumpingId, false);
 				}
 			}
+			if (inAir) {
+				animator.SetBool(isJumpingId, true);
+			}
 
 			velocity.y = rb.velocity.y + gravity * Time.fixedDeltaTime;
 
@@ -171,7 +173,6 @@ namespace LD43 {
 			if (rb.velocity.y > 0 && velocity.y < 0) {
 				gravity = descentGravity;
 			}
-
 			rb.velocity = velocity;
 		}
 
@@ -181,7 +182,7 @@ namespace LD43 {
 		}
 
 		public void Desactivate() {
-			velocity.x = 0f;
+			inputHorizVel = 0f;
 			isActive = false;
 		}
 
