@@ -1994,6 +1994,7 @@ GameObject:
   - component: {fileID: 469859245}
   - component: {fileID: 469859247}
   - component: {fileID: 469859248}
+  - component: {fileID: 469859249}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -2076,48 +2077,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_texts:
-  - Content: Where are we?
-    ContentWithEveryoneAlive: 
-    Character: 2
-  - Content: What happened?
-    ContentWithEveryoneAlive: 
-    Character: 2
-  - Content: W-we were just about to combat the foul Druksor when...
-    ContentWithEveryoneAlive: 
-    Character: 4
-  - Content: I think we fainted, and some villain took advantage of our helpless state
-      to drag us here!
-    ContentWithEveryoneAlive: 
-    Character: 1
-  - Content: Hodur!
+  - Content: Hodur
     ContentWithEveryoneAlive: 
     Character: 16
-  - Content: Yes, indeed!
-    ContentWithEveryoneAlive: 
-    Character: 1
-  - Content: DRUKSOR!!
+  - Content: "WE\u2026 WE\u2019LL COME BACK LATER, RIGHT?"
     ContentWithEveryoneAlive: 
     Character: 8
-  - Content: COME HERE, YOU COWARD, AND FIGHT US!
+  - Content: "You\u2019re a f*cking sicko, Glark."
     ContentWithEveryoneAlive: 
-    Character: 8
-  - Content: C-can we just get out of here?
-    ContentWithEveryoneAlive: 
-    Character: 4
-  - Content: This place is starting to creep me out...
+    Character: 2
+  - Content: T-this is just too cruel...
     ContentWithEveryoneAlive: 
     Character: 4
-  - Content: Of course Bonny-chan!
-    ContentWithEveryoneAlive: 
-    Character: 1
-  - Content: As long as I, Glark, your fearless leader am living, there is hope for
-      this world!
-    ContentWithEveryoneAlive: 
-    Character: 1
-  - Content: Go forth, my friends! With the power of friendship, we will all overcome
-      this hurdle and triumph against evil once again!
-    ContentWithEveryoneAlive: 
-    Character: 1
   m_names:
   - Name: Glark
     Character: 1
@@ -2133,6 +2104,17 @@ MonoBehaviour:
     type: 2}
   m_bubbleOffset: {x: 0, y: 1, z: -0.5}
   m_timeBetweenLetters: 0.04
+--- !u!114 &469859249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 469859244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1adeb6ae54baea2478414198af155717, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &521986808
 GameObject:
   m_ObjectHideFlags: 0
@@ -5157,7 +5139,6 @@ MonoBehaviour:
   - {fileID: 235727982}
   - {fileID: 530685703}
   m_changeCharacterSound: {fileID: 0}
-  m_characterIndicatorOffset: 3
 --- !u!4 &1424947249
 Transform:
   m_ObjectHideFlags: 0
