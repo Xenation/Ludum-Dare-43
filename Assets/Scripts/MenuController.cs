@@ -110,7 +110,7 @@ namespace LD43
                     StartCoroutine(ExecuteAfterSeconds(1.0f));
                     break;
                 case MenuChoice.Credit:
-                    StartCoroutine(ExecuteAfterSeconds(1.0f, 100)); // credit will probably be the last scene
+                    StartCoroutine(ExecuteAfterSeconds(1.0f, 6)); // credit will probably be the last scene
                     break;
                 case MenuChoice.Quit:
                     StartCoroutine(ExecuteAfterSeconds(1.0f, -2));

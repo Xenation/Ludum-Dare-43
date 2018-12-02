@@ -764,6 +764,7 @@ MonoBehaviour:
   - Level3
   - Level4
   - Level5
+  - Credits
   m_currentIndexScene: 0
   m_fadeTime: 1
   m_fadeBackground: {fileID: 114015754254602904}
