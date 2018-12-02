@@ -159,34 +159,6 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7e5f5fb3c397b8c43ba10e8e38856f07, type: 2}
   m_IsPrefabAsset: 0
---- !u!1 &52764454
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 52764455}
-  m_Layer: 0
-  m_Name: EndLevel
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &52764455
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 52764454}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.34, y: -0.49, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 20
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &56428978
 GameObject:
   m_ObjectHideFlags: 0
@@ -579,6 +551,7 @@ MonoBehaviour:
   m_currentIndexScene: 4
   m_fadeTime: 1
   m_fadeBackground: {fileID: 0}
+  m_leaderSaved: {fileID: 0}
   m_menuMusic: {fileID: 0}
   m_introMusic: {fileID: 0}
   m_loopMusic: {fileID: 0}
@@ -1935,7 +1908,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 21
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1907732011
 GameObject:
@@ -2137,7 +2110,7 @@ MonoBehaviour:
     Character: 16
   m_bubblePrefab: {fileID: 1547387037418042, guid: 93207374662b2694da812b43341a53e7,
     type: 2}
-  m_bubbleOffset: {x: 0, y: 1, z: -0.5}
+  m_bubbleOffset: {x: 2.25, y: 1, z: -0.5}
   m_timeBetweenLetters: 0.04
   m_soundChangeDialog: {fileID: 1976466464}
   m_soundDialog: {fileID: 1976466465}

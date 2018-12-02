@@ -686,11 +686,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114425896646492124, guid: 7d108a158e2d49c408d01a6280d88e60,
-        type: 2}
-      propertyPath: m_levelNames.Array.size
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 4060576779623614, guid: 7d108a158e2d49c408d01a6280d88e60, type: 2}
       propertyPath: m_LocalPosition.x
       value: 990.3048
@@ -728,55 +723,7 @@ Prefab:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114809942496062040, guid: 7d108a158e2d49c408d01a6280d88e60,
-        type: 2}
-      propertyPath: m_texts.Array.data[0].Content
-      value: zjhegfjyzegfyuzb vekfgezf iluezhfkyuegvzbyjfgvezujygfujeyzgvfygzevjfgzejygf
-        bjgkfjgverjsbg fverukyevfyerfbv etrvyugrukvbrukqzfvkyuerhvgfrygfhvbseuvtergfyver
-      objectReference: {fileID: 0}
-    - target: {fileID: 82542912757969178, guid: 7d108a158e2d49c408d01a6280d88e60,
-        type: 2}
-      propertyPath: OutputAudioMixerGroup
-      value: 
-      objectReference: {fileID: 24300002, guid: cdb8dce83948c144a95ae876862cfc9c,
-        type: 2}
-    - target: {fileID: 114425896646492124, guid: 7d108a158e2d49c408d01a6280d88e60,
-        type: 2}
-      propertyPath: m_playerTypesToSpawn
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114425896646492124, guid: 7d108a158e2d49c408d01a6280d88e60,
-        type: 2}
-      propertyPath: m_levelNames.Array.data[0]
-      value: Menu_Final
-      objectReference: {fileID: 0}
-    - target: {fileID: 114425896646492124, guid: 7d108a158e2d49c408d01a6280d88e60,
-        type: 2}
-      propertyPath: m_levelNames.Array.data[1]
-      value: Level1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114425896646492124, guid: 7d108a158e2d49c408d01a6280d88e60,
-        type: 2}
-      propertyPath: m_levelNames.Array.data[2]
-      value: Level2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114425896646492124, guid: 7d108a158e2d49c408d01a6280d88e60,
-        type: 2}
-      propertyPath: m_levelNames.Array.data[3]
-      value: Level3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114425896646492124, guid: 7d108a158e2d49c408d01a6280d88e60,
-        type: 2}
-      propertyPath: m_levelNames.Array.data[4]
-      value: Level4
-      objectReference: {fileID: 0}
-    - target: {fileID: 114425896646492124, guid: 7d108a158e2d49c408d01a6280d88e60,
-        type: 2}
-      propertyPath: m_levelNames.Array.data[5]
-      value: Level5
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 114809942496062040, guid: 7d108a158e2d49c408d01a6280d88e60, type: 2}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d108a158e2d49c408d01a6280d88e60, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1 &504009821
