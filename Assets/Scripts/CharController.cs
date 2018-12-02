@@ -30,7 +30,6 @@ namespace LD43 {
 		private float coastGravity = 1f;
 		private float descentGravity = 1f;
 		private float jumpVelocity = 0f;
-		private float prevVertVel = 0f;
 
 		private bool isActive = false;
 		private bool isDead = false;
@@ -46,9 +45,6 @@ namespace LD43 {
 		private EdgeCollider2D platform;
 		private float height = 0f;
 		private float width = 0f;
-
-		private bool pushZoneActive = false;
-		private bool landZoneActive = false;
 
 		private List<SpriteRenderer> subRenderers;
 		private Material material;
@@ -74,7 +70,6 @@ namespace LD43 {
 			descentGravity = (-2f * jumpHeight * jumpAirSpeed * jumpAirSpeed) / (descentDist * descentDist);
 			coastGravity = descentGravity;
 			jumpVelocity = (2f * jumpHeight * jumpAirSpeed) / ascentDist;
-			prevVertVel = rb.velocity.y;
 			gravity = descentGravity;
 
 			subRenderers = new List<SpriteRenderer>();
