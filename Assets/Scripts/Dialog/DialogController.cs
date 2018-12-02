@@ -12,6 +12,7 @@ namespace LD43
     public struct DialogInfos
     {
         [TextArea] public string Content;
+        [TextArea] public string ContentWithEveryoneAlive;
         public PlayerTypesFlag Character;
     }
 
@@ -35,6 +36,9 @@ namespace LD43
         private TextMeshPro m_bubbleName;
         private PlayerTypesFlag m_charactersDisplaying = 0;
         private Transform m_toFollow = null;
+
+        public PlayerTypesFlag CharactersDisplaying { get { return m_charactersDisplaying; } }
+
 
         private int m_currentIndex = -1;
 
@@ -81,7 +85,7 @@ namespace LD43
                 if (m_currentIndex >= m_texts.Count || string.IsNullOrEmpty(m_texts[m_currentIndex].Content))
                     ChangeUIVisibility(0);
                 else
-                    ChangeUIVisibility(m_texts[m_currentIndex].Character, m_texts[m_currentIndex].Content, m_names.FirstOrDefault(n => n.Character == m_texts[m_currentIndex].Character).Name ?? ""); 
+                    ChangeUIVisibility(m_texts[m_currentIndex].Character, GameManager.PlayerTypesToSpawn == (PlayerTypesFlag)31 ? m_texts[m_currentIndex].ContentWithEveryoneAlive : m_texts[m_currentIndex].Content, m_names.FirstOrDefault(n => n.Character == m_texts[m_currentIndex].Character).Name ?? "");
             }
 
         }

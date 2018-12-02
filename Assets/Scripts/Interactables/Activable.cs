@@ -38,7 +38,7 @@ namespace LD43
             {
                 StopAllCoroutines();
 
-                if (m_state == ActivableState.Closing)
+                if (m_state == ActivableState.Closing && m_desactivateSound)
                     SoundHelper.I.StopWithFade(m_desactivateSound);
 
                 StartCoroutine(AnimateActivable(m_animOpenSeconds, true));
@@ -52,7 +52,7 @@ namespace LD43
             {
                 StopAllCoroutines();
 
-                if (m_state == ActivableState.Openning)
+                if (m_state == ActivableState.Openning && m_activateSound)
                     SoundHelper.I.StopWithFade(m_activateSound);
 
                 StartCoroutine(AnimateActivable(m_animCloseSeconds, false));
@@ -65,13 +65,15 @@ namespace LD43
             if (open)
             {
                 m_state = ActivableState.Openning;
-                m_activateSound.Play();
+                if (m_activateSound)
+                    m_activateSound.Play();
                 yield return new WaitForSeconds(m_animOpenDelaySeconds);
             }
             else
             {
                 m_state = ActivableState.Closing;
-                m_desactivateSound.Play();
+                if (m_desactivateSound)
+                    m_desactivateSound.Play();
                 yield return new WaitForSeconds(m_animCloseDelaySeconds);
             }
 
@@ -92,12 +94,15 @@ namespace LD43
             if (open)
             {
                 m_state = ActivableState.Openned;
-                SoundHelper.I.StopWithFade(m_activateSound);
+                if (m_activateSound)
+                    SoundHelper.I.StopWithFade(m_activateSound);
             }
             else
             {
                 m_state = ActivableState.Closed;
-                SoundHelper.I.StopWithFade(m_desactivateSound);
+
+                if (m_desactivateSound)
+                    SoundHelper.I.StopWithFade(m_desactivateSound);
             }
 
             m_currentLerpRatio = Mathf.Clamp01(m_currentLerpRatio);
