@@ -34,6 +34,7 @@ namespace LD43 {
 		private float coastGravity = 1f;
 		private float descentGravity = 1f;
 		private float jumpVelocity = 0f;
+		private bool dropThrough = false;
 
 		private bool isActive = false;
 		private bool isDead = false;
@@ -127,12 +128,16 @@ namespace LD43 {
 				if (Input.GetButtonUp("Jump") && inAir && rb.velocity.y > 0f) {
 					gravity = coastGravity;
 				}
+
+				if (Input.GetButtonDown("DropThrough")) {
+					dropThrough = true;
+				}
 			}
 		}
 		
 		private void FixedUpdate() {
 			if (isDead) return;
-			Collider2D[] colliders = new Collider2D[4];
+			Collider2D[] colliders = new Collider2D[8];
 			int colCount;
 			velocity.x = inputHorizVel;
 
@@ -167,6 +172,15 @@ namespace LD43 {
 			colCount = landZone.OverlapCollider(landZoneFilter, colliders);
 			for (int i = 0; i < colCount; i++) {
 				if (colliders[i] != col) {
+
+					if (dropThrough) {
+						dropThrough = false;
+						DropThroughPlatform plat = colliders[i].GetComponent<DropThroughPlatform>();
+						if (plat) {
+							plat.AllowDropThrough(col, .2f);
+						}
+					}
+
 					inAir = false;
 					animator.SetBool(isJumpingId, false);
 

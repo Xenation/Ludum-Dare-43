@@ -89,6 +89,7 @@ GameObject:
   - component: {fileID: 4349049771989934}
   - component: {fileID: 68549583012067916}
   - component: {fileID: 251285758738756140}
+  - component: {fileID: 114224618467895708}
   m_Layer: 0
   m_Name: Platform
   m_TagString: Untagged
@@ -478,6 +479,17 @@ MonoBehaviour:
     m_NumAlphaKeys: 4
   outlineAnimDuration: 1
   animator: {fileID: 0}
+--- !u!114 &114224618467895708
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1901589520376232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3fbeee52b6d39543a1210ec3c77523e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114624037140783726
 MonoBehaviour:
   m_ObjectHideFlags: 1
