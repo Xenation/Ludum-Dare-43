@@ -7,10 +7,12 @@ namespace LD43 {
 
 		private Gradient colorGradient;
 		private Material material;
+		private int outlineColorId;
 
 		public OutlineAnimProcess(float duration, Gradient gradient, Material mat) : base(duration) {
 			colorGradient = gradient;
 			material = mat;
+			outlineColorId = Shader.PropertyToID("_OutlineColor");
 		}
 
 		public override void OnBegin() {
@@ -18,7 +20,7 @@ namespace LD43 {
 		}
 
 		public override void TimeUpdated() {
-			material.SetColor("_OutlineColor", colorGradient.Evaluate(TimePortion));
+			material.SetColor(outlineColorId, colorGradient.Evaluate(TimePortion));
 			base.TimeUpdated();
 		}
 
@@ -28,6 +30,7 @@ namespace LD43 {
 
 		public override void OnTerminate() {
 			base.OnTerminate();
+			material.SetColor(outlineColorId, Color.clear);
 		}
 
 	}
