@@ -417,10 +417,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  pushSpeed: 1
-  jumpHeight: 5
-  jumpDistance: 4
-  jumpAirSpeed: 7
+  pushSpeed: 0
+  jumpHeight: 5.5
+  jumpDistance: 5.5
+  jumpAirSpeed: 6
   matDead: {fileID: 6200000, guid: 69d25dfb975b8d0479d87d60fb8f7d25, type: 2}
   PlayerType: 0
   m_deadSound: {fileID: 82508729781907038}
@@ -451,7 +451,7 @@ PlatformEffector2D:
   m_RotationalOffset: 0
   m_UseOneWay: 1
   m_UseOneWayGrouping: 0
-  m_SurfaceArc: 180
+  m_SurfaceArc: 150
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
