@@ -13,6 +13,7 @@
 
 		Pass {
 			ZWrite Off
+			Cull Off
 			Blend SrcAlpha OneMinusSrcAlpha // Traditional transparency
 			CGPROGRAM
 			#pragma vertex vert
