@@ -1275,16 +1275,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_texts:
   - Content: '...'
-    ContentWithEveryoneAlive: 
+    ContentWithEveryoneAlive: WE'RE UNSTOPPABLE!
     Character: 8
   - Content: "At the first occasion, I\u2019m stabbing you in the back."
-    ContentWithEveryoneAlive: 
+    ContentWithEveryoneAlive: How big is this f*cking death trap?
     Character: 2
   - Content: W-why are you doing this to us Glark?
-    ContentWithEveryoneAlive: 
+    ContentWithEveryoneAlive: W-we're getting close... I feel it, in my heart.
     Character: 4
   - Content: "Ho\u2026 Hodur..."
-    ContentWithEveryoneAlive: 
+    ContentWithEveryoneAlive: Hodur.
     Character: 16
   m_names:
   - Name: Glark
@@ -1301,6 +1301,8 @@ MonoBehaviour:
     type: 2}
   m_bubbleOffset: {x: 0, y: 1, z: -0.5}
   m_timeBetweenLetters: 0.04
+  m_soundChangeDialog: {fileID: 0}
+  m_soundDialog: {fileID: 0}
 --- !u!114 &469859249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2031,6 +2033,8 @@ MonoBehaviour:
   m_bubblePrefab: {fileID: 0}
   m_bubbleOffset: {x: 0, y: 1, z: -0.5}
   m_timeBetweenLetters: 0.1
+  m_soundChangeDialog: {fileID: 0}
+  m_soundDialog: {fileID: 0}
 --- !u!1 &1070016908
 GameObject:
   m_ObjectHideFlags: 0
@@ -2877,6 +2881,8 @@ MonoBehaviour:
   m_bubblePrefab: {fileID: 0}
   m_bubbleOffset: {x: 0, y: 1, z: -0.5}
   m_timeBetweenLetters: 0.1
+  m_soundChangeDialog: {fileID: 0}
+  m_soundDialog: {fileID: 0}
 --- !u!1 &1819199918
 GameObject:
   m_ObjectHideFlags: 0
