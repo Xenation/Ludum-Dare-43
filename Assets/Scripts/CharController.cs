@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Xenon;
 
 namespace LD43 {
 	[RequireComponent(typeof(Rigidbody2D))]
@@ -16,6 +17,8 @@ namespace LD43 {
         public PlayerTypesFlag PlayerType;
 
         [SerializeField] private AudioSource m_deadSound;
+
+		[SerializeField] private Gradient outlineAnimGradient;
 
 		private float gravity = 1f;
 		private float ascentGravity = 1f;
@@ -37,6 +40,10 @@ namespace LD43 {
 		private EdgeCollider2D platform;
 		private float height = 0f;
 		private float width = 0f;
+
+		private List<SpriteRenderer> subRenderers;
+		private Material material;
+		private ProcessManager procManager;
 
 		private void Awake() {
 			rb = GetComponent<Rigidbody2D>();
@@ -60,6 +67,14 @@ namespace LD43 {
 			jumpVelocity = (2f * jumpHeight * jumpAirSpeed) / ascentDist;
 			prevVertVel = rb.velocity.y;
 			gravity = descentGravity;
+
+			subRenderers = new List<SpriteRenderer>();
+			GetComponentsInChildren(subRenderers);
+			material = new Material(Shader.Find("Custom/SpriteOutline"));
+			foreach (SpriteRenderer rend in subRenderers) {
+				rend.material = material;
+			}
+			procManager = new ProcessManager();
 		}
 
 		private void Update() {
@@ -131,6 +146,7 @@ namespace LD43 {
 		}
 
 		public void Activate() {
+			procManager.LaunchProcess(new OutlineAnimProcess(2f, outlineAnimGradient, material));
 			isActive = true;
 		}
 
