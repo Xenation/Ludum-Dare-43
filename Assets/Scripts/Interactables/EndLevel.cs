@@ -67,11 +67,12 @@ namespace LD43
                             leaderSaved = true;
 
                         currentController.gameObject.SetActive(false);
+
+                        if (m_endLevelSource)
+                            m_endLevelSource.Play();
                     }
                     if (Input.GetButtonDown("Submit") && leaderSaved)
                     {
-                        if (m_endLevelSource)
-                            m_endLevelSource.Play();
 
                         GameManager.NextLevel();
                     }
