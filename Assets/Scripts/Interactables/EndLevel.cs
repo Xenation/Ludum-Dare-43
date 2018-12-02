@@ -55,12 +55,9 @@ namespace LD43
                 case EndLevelState.NotReady:
                     break;
                 case EndLevelState.Ready:
-                    if (Input.GetButtonDown("LeaderQuit"))
+                    CharController currentController = CharactersManager.I.GetCurrentController();
+                    if (Input.GetButtonDown("LeaderQuit") && m_charactersReady.FirstOrDefault(c => GameObject.ReferenceEquals(c, currentController.gameObject)))
                     {
-                        //m_state = EndLevelState.Quit;
-
-                        // TODO : hide the character
-                        CharController currentController = CharactersManager.I.GetCurrentController();
                         GameManager.SavePlayerType(currentController.PlayerType);
 
                         if (currentController.PlayerType == PlayerTypesFlag.Leader)
@@ -78,11 +75,11 @@ namespace LD43
                     }
                     break;
                 case EndLevelState.Quit:
-                    
+
                     break;
                 default:
                     break;
             }
         }
-    } 
+    }
 }
