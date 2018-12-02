@@ -1256,6 +1256,14 @@ Prefab:
       propertyPath: m_playerTypesToSpawn
       value: -1
       objectReference: {fileID: 0}
+    - target: {fileID: 1309314154672790, guid: 7d108a158e2d49c408d01a6280d88e60, type: 2}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1884475717562776, guid: 7d108a158e2d49c408d01a6280d88e60, type: 2}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d108a158e2d49c408d01a6280d88e60, type: 2}
   m_IsPrefabAsset: 0
