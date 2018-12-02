@@ -15,7 +15,7 @@ namespace LD43 {
 		public PhysicsMaterial2D matDead;
 
         public PlayerTypesFlag PlayerType;
-
+        public GameObject OverlayPosition;
         [SerializeField] private AudioSource m_deadSound;
 
 		[SerializeField] private Gradient outlineAnimGradient;
