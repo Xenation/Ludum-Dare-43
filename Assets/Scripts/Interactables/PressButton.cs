@@ -21,7 +21,8 @@ namespace LD43
                 if (m_pressSound && !m_pressSound.isPlaying)
                     m_pressSound.Play();
 
-                m_activable.Activate();
+                if (m_activable)
+                    m_activable.Activate();
             }
         }
 
@@ -36,7 +37,7 @@ namespace LD43
                 if (m_unpressSound && !m_unpressSound.isPlaying)
                     m_unpressSound.Play();
 
-                if (m_pressedTime <= 0)
+                if (m_pressedTime <= 0 && m_activable)
                     m_activable.Desactivate();
             }
         }
