@@ -203,6 +203,9 @@ namespace LD43
         [Header("Player")]
         [SerializeField] private GameObject m_playerIndicatorPrefab;
         [SerializeField] private Vector3 m_playerIndicatorOffset = new Vector3(0f, 0f, 0f);
+        [SerializeField] private Vector3 m_leaderIndicatorScale = new Vector3(2f, 2f, 2f);
+        [SerializeField] private Color m_leaderIndicatorColor = Color.red;
+        [SerializeField] private Color m_defaultIndicatorColor = Color.white;
         private GameObject m_currentPlayerIndicator;
         public static GameObject PlayerIndicatorPrefab { get { return m_instance.m_playerIndicatorPrefab; } }
         public static void UpdatePlayerIndicator(CharController parent, float yOffset, bool display = true)
@@ -212,6 +215,11 @@ namespace LD43
 
             if (parent)
             {
+                SpriteRenderer rend = m_instance.m_currentPlayerIndicator.GetComponent<SpriteRenderer>();
+                if (rend)
+                    rend.color = parent.PlayerType == PlayerTypesFlag.Leader ? m_instance.m_leaderIndicatorColor : m_instance.m_defaultIndicatorColor;
+                m_instance.m_currentPlayerIndicator.transform.localScale = parent.PlayerType == PlayerTypesFlag.Leader ? m_instance.m_leaderIndicatorScale : new Vector3(1f, 1f, 1f);
+
                 m_instance.m_currentPlayerIndicator.transform.parent = parent.OverlayPosition.transform;
                 m_instance.m_currentPlayerIndicator.transform.localPosition = m_instance.m_playerIndicatorOffset;
                 m_instance.m_currentPlayerIndicator.transform.rotation = Quaternion.identity;
