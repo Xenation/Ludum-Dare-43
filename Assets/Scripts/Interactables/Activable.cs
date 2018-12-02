@@ -94,12 +94,15 @@ namespace LD43
             if (open)
             {
                 m_state = ActivableState.Openned;
-                SoundHelper.I.StopWithFade(m_activateSound);
+                if (m_activateSound)
+                    SoundHelper.I.StopWithFade(m_activateSound);
             }
             else
             {
                 m_state = ActivableState.Closed;
-                SoundHelper.I.StopWithFade(m_desactivateSound);
+
+                if (m_desactivateSound)
+                    SoundHelper.I.StopWithFade(m_desactivateSound);
             }
 
             m_currentLerpRatio = Mathf.Clamp01(m_currentLerpRatio);
