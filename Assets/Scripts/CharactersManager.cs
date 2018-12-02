@@ -31,8 +31,6 @@ namespace LD43 {
         [SerializeField] private List<Transform> m_startPositions = new List<Transform>();
         [SerializeField] private AudioSource m_changeCharacterSound;
 
-        [SerializeField] private float m_characterIndicatorOffset = 3f;
-
         private int activeCharacter = 0;
 
 

@@ -24,6 +24,7 @@ namespace LD43 {
 		private int isRunningId;
 		private int isPushingId;
 		private int isJumpingId;
+		private int isDeadId;
 
 		private float gravity = 1f;
 		private float ascentGravity = 1f;
@@ -91,6 +92,7 @@ namespace LD43 {
 			isRunningId = Animator.StringToHash("isRunning");
 			isPushingId = Animator.StringToHash("isPushing");
 			isJumpingId = Animator.StringToHash("isJumping");
+			isDeadId = Animator.StringToHash("isDead");
 
 			OverlayPosition overlayPositionComp = GetComponentInChildren<OverlayPosition>();
 			if (overlayPositionComp)
@@ -191,6 +193,7 @@ namespace LD43 {
 			if (isDead) return;
 			CharactersManager.I.RemoveCharacter(this);
 			isDead = true;
+			animator.SetBool(isDeadId, true);
 			transform.position = new Vector3(transform.position.x, layY, transform.position.z);
 			if (transform.localScale.x > 0) {
 				transform.rotation = Quaternion.Euler(0f, 0f, -90f);
