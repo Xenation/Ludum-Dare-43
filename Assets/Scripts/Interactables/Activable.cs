@@ -26,6 +26,7 @@ namespace LD43
 
         [Header("Sound")]
         [SerializeField] protected AudioSource m_activateSound;
+        [SerializeField] protected AudioSource m_clacDoorSound;
         [SerializeField] private AudioSource m_desactivateSound;
 
         private bool m_isMoving = false;
@@ -104,6 +105,8 @@ namespace LD43
 
                 if (m_desactivateSound)
                     SoundHelper.I.StopWithFade(m_desactivateSound);
+                if (m_clacDoorSound)
+                    m_clacDoorSound.Play();
             }
 
             m_currentLerpRatio = Mathf.Clamp01(m_currentLerpRatio);
