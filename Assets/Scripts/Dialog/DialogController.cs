@@ -123,7 +123,7 @@ namespace LD43
                 if (!m_currentBubble.activeSelf)
                     m_currentBubble.SetActive(true);
             }
-            else
+            else if(controller)
             {
                 NextText();
             }

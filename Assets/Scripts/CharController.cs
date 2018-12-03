@@ -36,8 +36,8 @@ namespace LD43 {
 		private float jumpVelocity = 0f;
 		private bool dropThrough = false;
 
-		private bool isActive = false;
-		private bool isDead = false;
+		public bool isActive = false;
+		public bool isDead = false;
 		private bool inAir = true;
 		private Rigidbody2D rb;
 		private Collider2D col;

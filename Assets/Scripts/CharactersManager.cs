@@ -4,7 +4,8 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace LD43 {
+namespace LD43
+{
     //public enum PlayerTypesEnum
     //{
     //    Leader = 1,
@@ -24,9 +25,10 @@ namespace LD43 {
         Strong = 16
     }
 
-    public class CharactersManager : Singleton<CharactersManager> {
-        
-		public List<CharController> characters;
+    public class CharactersManager : Singleton<CharactersManager>
+    {
+
+        public List<CharController> characters;
 
         [SerializeField] private List<Transform> m_startPositions = new List<Transform>();
         [SerializeField] private AudioSource m_changeCharacterSound;
@@ -34,12 +36,14 @@ namespace LD43 {
         private int activeCharacter = 0;
 
 
-        private void Start() {
+        private void Start()
+        {
             Init();
 
-			characters[activeCharacter].Activate();
+            if (characters.Count > 0)
+                characters[activeCharacter].Activate();
         }
-        
+
         private void Init()
         {
             characters = new List<CharController>();
@@ -67,35 +71,42 @@ namespace LD43 {
             GameManager.ResetPlayerTypesToSpawn(); // set types available to 0
         }
 
-        private void Update() {
-			if (characters.Count > 1) {
-				if (Input.GetButtonDown("NextCharacter")) {
-					NextCharacter();
+        private void Update()
+        {
+            if (characters.Count > 1)
+            {
+                if (Input.GetButtonDown("NextCharacter"))
+                {
+                    NextCharacter();
                 }
-			}
-		}
+            }
+        }
 
-		public void RemoveCharacter(CharController contr) {
-			if (!characters.Contains(contr)) return;
-			int remIndex = characters.IndexOf(contr);
-			characters.Remove(contr);
-			contr.Desactivate();
-			if (remIndex < activeCharacter) {
-				activeCharacter--;
-			}
-			if (characters.Count > 0) {
-				activeCharacter = activeCharacter % characters.Count;
-				characters[activeCharacter].Activate();
-			}
-		}
+        public void RemoveCharacter(CharController contr)
+        {
+            if (!characters.Contains(contr)) return;
+            int remIndex = characters.IndexOf(contr);
+            characters.Remove(contr);
+            contr.Desactivate();
+            if (remIndex < activeCharacter)
+            {
+                activeCharacter--;
+            }
+            if (characters.Count > 0)
+            {
+                activeCharacter = activeCharacter % characters.Count;
+                characters[activeCharacter].Activate();
+            }
+        }
 
         public CharController GetCharacterWithType(PlayerTypesFlag type)
         {
             return characters.FirstOrDefault(c => (c.PlayerType & type) == type);
         }
 
-		public void NextCharacter() {
-            if (DialogController.I.CharactersDisplaying == 0)
+        public void NextCharacter()
+        {
+            if (DialogController.I && DialogController.I.CharactersDisplaying == 0)
             {
                 if (m_changeCharacterSound)
                     m_changeCharacterSound.Play();
@@ -108,14 +119,14 @@ namespace LD43 {
                     activeCharacter = activeCharacter % characters.Count;
                     characters[activeCharacter].Activate();
                     count++;
-                } while (!characters[activeCharacter].gameObject.activeInHierarchy || count > 5);
+                } while (!characters[activeCharacter].gameObject.activeInHierarchy && count < 5);
             }
-		}
+        }
 
         public CharController GetCurrentController()
         {
             return characters[activeCharacter];
         }
-        
-	}
+
+    }
 }

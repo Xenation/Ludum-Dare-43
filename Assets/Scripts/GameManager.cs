@@ -36,15 +36,23 @@ namespace LD43
             SceneManager.sceneLoaded += OnSceneLoaded;
         }
 
+        bool m_reseting = false;
+        bool m_hardreseting = false;
         private void Update()
         {
             if (m_currentIndexScene > 0 && m_currentIndexScene < m_levelNames.Count) // if we are on game level
             {
-                if (Input.GetButtonDown("Reset"))
+                if (Input.GetButtonDown("Reset") && !m_reseting)
+                {
+                    m_reseting = true;
                     ResetLevel();
+                }
 
-                if (Input.GetButtonDown("HardReset"))
+                if (Input.GetButtonDown("HardReset") && !m_hardreseting)
+                {
+                    m_hardreseting = true;
                     HardResetLevel();
+                }
             }
         }
 
@@ -91,6 +99,7 @@ namespace LD43
 
         public static void NextLevel(int nextLevelIndex = -1)
         {
+            print("foo3");
             UpdatePlayerIndicator(null, 0f, false);
             int lastIndex = m_instance.m_currentIndexScene;
 
@@ -135,6 +144,9 @@ namespace LD43
         {
             if (m_leaderSaved)
                 m_leaderSaved.gameObject.SetActive(false);
+
+            m_reseting = false;
+            m_hardreseting = false;
 
             m_currentSceneName = scene.name;
             //Debug.Log("OnSceneLoaded: " + scene.name);

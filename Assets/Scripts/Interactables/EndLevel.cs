@@ -56,8 +56,12 @@ namespace LD43
             }
         }
 
+        private bool m_isGoinNext = false;
         private void Update()
         {
+            if (m_isGoinNext)
+                return;
+
             m_indicator.SetActive(m_charactersReady != null && m_charactersReady.Where(c => c.activeInHierarchy).ToArray().Length > 0);
 
             switch (m_state)
@@ -66,7 +70,7 @@ namespace LD43
                     break;
                 case EndLevelState.Ready:
                     CharController currentController = CharactersManager.I.GetCurrentController();
-                    if (Input.GetButtonDown("LeaderQuit") && m_charactersReady.FirstOrDefault(c => GameObject.ReferenceEquals(c, currentController.gameObject)))
+                    if (Input.GetButtonDown("LeaderQuit") && m_charactersReady != null && m_charactersReady.Count <= 5 && m_charactersReady.FirstOrDefault(c => GameObject.ReferenceEquals(c, currentController.gameObject)))
                     {
                         GameManager.SavePlayerType(currentController.PlayerType);
 
@@ -77,20 +81,23 @@ namespace LD43
                         }
                         currentController.gameObject.SetActive(false);
 
-                        if (m_endLevelSource)
-                            m_endLevelSource.Play();
+                        //if (m_endLevelSource)
+                        //    m_endLevelSource.Play();
 
-                        if (GameManager.PlayerTypesToSpawn == (PlayerTypesFlag)31) // everyone saved
+                        if (GameManager.PlayerTypesToSpawn == GameManager.PlayerHereAtStart && !m_isGoinNext) // everyone saved
                         {
+                            m_isGoinNext = true;
                             GameManager.NextLevel();
                             return;
                         }
 
-                        CharactersManager.I.NextCharacter();
+                        if (!m_isGoinNext)
+                            CharactersManager.I.NextCharacter();
                     }
-                    if (Input.GetButtonDown("Submit") && leaderSaved)
+                    if (Input.GetButtonDown("Submit") && leaderSaved && !m_isGoinNext)
                     {
-
+                        print("foo 2");
+                        m_isGoinNext = true;
                         GameManager.NextLevel();
                     }
                     break;
