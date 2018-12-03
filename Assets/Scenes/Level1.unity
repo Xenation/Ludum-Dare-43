@@ -1725,7 +1725,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 530685702}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -11.01, y: -1.69, z: 0}
+  m_LocalPosition: {x: -10.75, y: -1.69, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1973863785}
@@ -6141,7 +6141,7 @@ MonoBehaviour:
     Character: 16
   m_bubblePrefab: {fileID: 1547387037418042, guid: 93207374662b2694da812b43341a53e7,
     type: 2}
-  m_bubbleOffset: {x: 2.25, y: 1, z: -0.5}
+  m_bubbleOffset: {x: 2.25, y: 1, z: -0.65}
   m_timeBetweenLetters: 0.03
   m_soundChangeDialog: {fileID: 1868083637}
   m_soundDialog: {fileID: 1868083636}
