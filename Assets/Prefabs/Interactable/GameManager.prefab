@@ -944,7 +944,7 @@ MonoBehaviour:
   m_playerIndicatorPrefab: {fileID: 1329962396208710, guid: 23023e3d50a02214b9e6bbe6cbc5fa08,
     type: 2}
   m_playerIndicatorOffset: {x: 0, y: 0, z: 0}
-  m_leaderIndicatorScale: {x: 2, y: 2, z: 2}
+  m_leaderIndicatorScale: {x: 1, y: 1, z: 1}
   m_leaderIndicatorColor: {r: 1, g: 0, b: 0, a: 1}
   m_defaultIndicatorColor: {r: 1, g: 1, b: 1, a: 1}
   m_playerTypesToSpawn: -1
