@@ -3184,11 +3184,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4361479905650426, guid: fe1a5a1faa2c0a0418d991e553888181,
     type: 2}
   m_PrefabInternal: {fileID: 566853607}
---- !u!4 &1035763608 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4182203368119948, guid: 1318a79a9b427e346b3985eaf1132edb,
-    type: 2}
-  m_PrefabInternal: {fileID: 1626792604}
 --- !u!114 &1036995092 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114405287943442288, guid: 1318a79a9b427e346b3985eaf1132edb,
@@ -5003,11 +4998,6 @@ Prefab:
       propertyPath: m_animCloseSeconds
       value: 11
       objectReference: {fileID: 0}
-    - target: {fileID: 114405287943442288, guid: 1318a79a9b427e346b3985eaf1132edb,
-        type: 2}
-      propertyPath: m_model
-      value: 
-      objectReference: {fileID: 1035763608}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1318a79a9b427e346b3985eaf1132edb, type: 2}
   m_IsPrefabAsset: 0
