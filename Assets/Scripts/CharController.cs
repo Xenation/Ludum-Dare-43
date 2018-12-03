@@ -29,6 +29,8 @@ namespace LD43 {
 		private int isJumpingId;
 		private int isDeadId;
 
+		[SerializeField] private GameObject bloodParticlesPrefab;
+
 		private float gravity = 1f;
 		private float ascentGravity = 1f;
 		private float coastGravity = 1f;
@@ -126,6 +128,7 @@ namespace LD43 {
 				if (Input.GetButtonDown("Jump") && !inAir) {
 					rb.AddForce(Vector2.up * jumpVelocity, ForceMode2D.Impulse);
 					gravity = ascentGravity;
+					platform.enabled = false;
 				}
 				if (Input.GetButtonUp("Jump") && inAir && rb.velocity.y > 0f) {
 					gravity = coastGravity;
@@ -188,7 +191,8 @@ namespace LD43 {
 
                     if(m_lastFrameInAir) // if last frame char was in air and now he is not : he is landing
                     {
-                        if (m_landSound && m_firstLandIgnore)
+						platform.enabled = true;
+						if (m_landSound && m_firstLandIgnore)
                             m_landSound.Play();
 
                         if (!m_firstLandIgnore)
@@ -259,6 +263,7 @@ namespace LD43 {
 			gameObject.layer = LayerMask.NameToLayer("DeadCharacter");
             if (m_deadSound)
                 m_deadSound.Play();
+			Instantiate(bloodParticlesPrefab, col.bounds.center, Quaternion.identity, transform);
 		}
 
 	}

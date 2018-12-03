@@ -187,7 +187,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1259636387321666}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.641874, y: 0.58892834, z: 0}
+  m_LocalPosition: {x: 4.7725267, y: -1.2515585, z: -1.2285814}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4137821923300362}
@@ -671,6 +671,10 @@ MonoBehaviour:
     m_NumAlphaKeys: 4
   outlineAnimDuration: 1
   animator: {fileID: 0}
+  bloodParticlesPrefab: {fileID: 1170282623675772, guid: 393247d836d5b8d43bd99ecf73914d22,
+    type: 2}
+  isActive: 0
+  isDead: 0
 --- !u!114 &114224618467895708
 MonoBehaviour:
   m_ObjectHideFlags: 1
