@@ -146,7 +146,8 @@ namespace LD43
 
         public static void DisplayLeaderSaved()
         {
-            m_instance.m_leaderSaved.gameObject.SetActive(true);
+            if (m_instance.m_leaderSaved)
+                m_instance.m_leaderSaved.gameObject.SetActive(true);
         }
 
         IEnumerator FadeLevel(float fadeTime, bool fadeIn, bool changeScene)
@@ -160,7 +161,7 @@ namespace LD43
                 current += Time.deltaTime;
                 if (m_fadeBackground)
                 {
-                    float alpha = Mathf.Lerp(start, end, current/m_fadeTime);
+                    float alpha = Mathf.Lerp(start, end, current / m_fadeTime);
                     m_fadeBackground.color = new Color(m_fadeBackground.color.r, m_fadeBackground.color.g, m_fadeBackground.color.b, alpha);
                 }
 
