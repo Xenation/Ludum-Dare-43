@@ -275,7 +275,69 @@ namespace LD43
         [SerializeField, EnumFlags] private PlayerTypesFlag m_playerTypesToSpawn;
         private PlayerTypesFlag m_playersHereAtStart;
         public static PlayerTypesFlag PlayerTypesToSpawn { get { return m_instance.m_playerTypesToSpawn; } }
+        public static int NbPlayerTypesToSpawn
+        {
+            get
+            {
+
+                int result = 0;
+
+                if ((GameManager.PlayerTypesToSpawn & PlayerTypesFlag.Leader) == PlayerTypesFlag.Leader)
+                {
+                    result++;
+                }
+                if ((GameManager.PlayerTypesToSpawn & PlayerTypesFlag.Small) == PlayerTypesFlag.Small)
+                {
+                    result++;
+                }
+                if ((GameManager.PlayerTypesToSpawn & PlayerTypesFlag.HighJump) == PlayerTypesFlag.HighJump)
+                {
+                    result++;
+                }
+                if ((GameManager.PlayerTypesToSpawn & PlayerTypesFlag.FarJump) == PlayerTypesFlag.FarJump)
+                {
+                    result++;
+                }
+                if ((GameManager.PlayerTypesToSpawn & PlayerTypesFlag.Strong) == PlayerTypesFlag.Strong)
+                {
+                    result++;
+                }
+
+                return result;
+            }
+        }
         public static PlayerTypesFlag PlayerHereAtStart { get { return m_instance.m_playersHereAtStart; } }
+        public static int NbPlayerHereAtStart
+        {
+            get
+            {
+
+                int result = 0;
+
+                if ((GameManager.PlayerHereAtStart & PlayerTypesFlag.Leader) == PlayerTypesFlag.Leader)
+                {
+                    result++;
+                }
+                if ((GameManager.PlayerHereAtStart & PlayerTypesFlag.Small) == PlayerTypesFlag.Small)
+                {
+                    result++;
+                }
+                if ((GameManager.PlayerHereAtStart & PlayerTypesFlag.HighJump) == PlayerTypesFlag.HighJump)
+                {
+                    result++;
+                }
+                if ((GameManager.PlayerHereAtStart & PlayerTypesFlag.FarJump) == PlayerTypesFlag.FarJump)
+                {
+                    result++;
+                }
+                if ((GameManager.PlayerHereAtStart & PlayerTypesFlag.Strong) == PlayerTypesFlag.Strong)
+                {
+                    result++;
+                }
+
+                return result;
+            }
+        }
         public static void ResetPlayerTypesToSpawn()
         {
             m_instance.m_playersHereAtStart = m_instance.m_playerTypesToSpawn;

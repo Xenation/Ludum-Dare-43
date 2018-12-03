@@ -79,12 +79,13 @@ namespace LD43
                             leaderSaved = true;
                             GameManager.DisplayLeaderSaved();
                         }
-                        currentController.gameObject.SetActive(false);
 
-                        //if (m_endLevelSource)
-                        //    m_endLevelSource.Play();
+                        StartCoroutine(FadePerso(currentController.gameObject, 1.0f));
 
-                        if (GameManager.PlayerTypesToSpawn == GameManager.PlayerHereAtStart && !m_isGoinNext) // everyone saved
+                        if (m_endLevelSource)
+                            m_endLevelSource.Play();
+                        
+                        if ((GameManager.PlayerTypesToSpawn == GameManager.PlayerHereAtStart || CharactersManager.I.characters.Count == GameManager.NbPlayerTypesToSpawn) && !m_isGoinNext) // everyone saved
                         {
                             m_isGoinNext = true;
                             GameManager.NextLevel();
@@ -107,6 +108,33 @@ namespace LD43
                 default:
                     break;
             }
+        }
+        IEnumerator FadePerso(GameObject target, float fadeTime = 0.5f)
+        {
+            float current = 0.0f;
+            float start = 1f;
+            float end = 0f;
+
+            Vector3 startPos = new Vector3(target.transform.position.x, target.transform.position.y, target.transform.position.z);
+            Vector3 endPos = new Vector3(target.transform.position.x, target.transform.position.y, target.transform.position.z + 0.5f);
+
+            SpriteRenderer rend = target.GetComponentInChildren<SpriteRenderer>();
+
+            while (current < fadeTime)
+            {
+                current += Time.deltaTime;
+                if (target && rend)
+                {
+                    float alpha = Mathf.Lerp(start, end, current / fadeTime);
+                    rend.color = new Color(rend.color.r, rend.color.g, rend.color.b, alpha);
+                    target.transform.position = Vector3.Lerp(startPos, endPos, current / fadeTime);
+                }
+
+                yield return null;
+            }
+
+            target.SetActive(false);
+            yield return null;
         }
     }
 }
