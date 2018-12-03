@@ -17,14 +17,14 @@ namespace LD43
             {
                 if (!m_isPressed)
                 {
+                    if (m_activable && m_pressedTime == 0)
+                    {
                     if (m_unpressSound && m_unpressSound.isPlaying)
                         m_unpressSound.Stop();
 
                     if (m_pressSound && !m_pressSound.isPlaying)
                         m_pressSound.Play();
 
-                    if (m_activable && m_pressedTime == 0)
-                    {
                         m_activable.Activate();
                         m_isPressed = true;
                     } 
@@ -40,14 +40,14 @@ namespace LD43
             {
                 if (m_isPressed)
                 {
+                    if (m_pressedTime <= 1 && m_activable)
+                    {
                     if (m_pressSound && m_pressSound.isPlaying)
                         m_pressSound.Stop();
 
                     if (m_unpressSound && !m_unpressSound.isPlaying)
                         m_unpressSound.Play();
 
-                    if (m_pressedTime <= 1 && m_activable)
-                    {
                         m_activable.Desactivate();
                         m_isPressed = false;
                     } 
