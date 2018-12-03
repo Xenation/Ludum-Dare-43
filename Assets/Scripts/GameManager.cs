@@ -38,9 +38,13 @@ namespace LD43
 
         private void Update()
         {
-            if (m_currentIndexScene > 0 && m_currentIndexScene < m_levelNames.Count && Input.GetButtonDown("Reset"))
+            if (m_currentIndexScene > 0 && m_currentIndexScene < m_levelNames.Count) // if we are on game level
             {
-                ResetLevel();
+                if (Input.GetButtonDown("Reset"))
+                    ResetLevel();
+
+                if (Input.GetButtonDown("HardReset"))
+                    HardResetLevel();
             }
         }
 
@@ -49,6 +53,13 @@ namespace LD43
             // reset
             m_instance.m_playerTypesToSpawn = m_instance.m_playersHereAtStart;
             NextLevel(m_instance.m_currentIndexScene);
+        }
+
+        public static void HardResetLevel()
+        {
+            // reset
+            m_instance.m_playerTypesToSpawn = (PlayerTypesFlag)31;
+            NextLevel(1);
         }
 
         // private DialogController m_dialogController;
@@ -101,6 +112,8 @@ namespace LD43
                     SoundHelper.I.StopWithFade(m_instance.m_introMusic, 0.0f, 1.0f);
                 if (m_instance.m_loopMusic)
                     SoundHelper.I.StopWithFade(m_instance.m_loopMusic, 0.0f, 1.0f);
+                if (m_instance.m_endingMusic)
+                    SoundHelper.I.StopWithFade(m_instance.m_endingMusic, 0.0f, 1.0f);
             }
             else if (m_instance.m_currentIndexScene == 1)
             {
@@ -108,6 +121,8 @@ namespace LD43
                 {
                     if (m_instance.m_menuMusic)
                         SoundHelper.I.StopWithFade(m_instance.m_menuMusic, 0.0f, 1.0f);
+                    if (m_instance.m_endingMusic)
+                        SoundHelper.I.StopWithFade(m_instance.m_endingMusic, 0.0f, 1.0f);
 
                     m_instance.StartCoroutine(m_instance.PlayGameMusic());
                 }
@@ -131,7 +146,8 @@ namespace LD43
 
         public static void DisplayLeaderSaved()
         {
-            m_instance.m_leaderSaved.gameObject.SetActive(true);
+            if (m_instance.m_leaderSaved)
+                m_instance.m_leaderSaved.gameObject.SetActive(true);
         }
 
         IEnumerator FadeLevel(float fadeTime, bool fadeIn, bool changeScene)
@@ -145,7 +161,7 @@ namespace LD43
                 current += Time.deltaTime;
                 if (m_fadeBackground)
                 {
-                    float alpha = Mathf.Lerp(start, end, current);
+                    float alpha = Mathf.Lerp(start, end, current / m_fadeTime);
                     m_fadeBackground.color = new Color(m_fadeBackground.color.r, m_fadeBackground.color.g, m_fadeBackground.color.b, alpha);
                 }
 
@@ -164,9 +180,24 @@ namespace LD43
         [SerializeField] private AudioSource m_menuMusic;
         [SerializeField] private AudioSource m_introMusic;
         [SerializeField] private AudioSource m_loopMusic;
+        [SerializeField] private AudioSource m_endingMusic;
 
         private bool m_wantToStopGameMusic = false;
         private bool m_gameMusicRunning = false;
+
+        public static void PlayEndingMusic()
+        {
+            m_instance.m_wantToStopGameMusic = true;
+            if (m_instance.m_introMusic)
+                SoundHelper.I.StopWithFade(m_instance.m_introMusic, 0.0f, 1.0f);
+            if (m_instance.m_loopMusic)
+                SoundHelper.I.StopWithFade(m_instance.m_loopMusic, 0.0f, 1.0f);
+            if (m_instance.m_menuMusic)
+                SoundHelper.I.StopWithFade(m_instance.m_menuMusic, 0.0f, 1.0f);
+
+            if (m_instance.m_endingMusic)
+                m_instance.m_endingMusic.Play();
+        }
 
         IEnumerator PlayGameMusic()
         {
@@ -203,6 +234,9 @@ namespace LD43
         [Header("Player")]
         [SerializeField] private GameObject m_playerIndicatorPrefab;
         [SerializeField] private Vector3 m_playerIndicatorOffset = new Vector3(0f, 0f, 0f);
+        [SerializeField] private Vector3 m_leaderIndicatorScale = new Vector3(2f, 2f, 2f);
+        [SerializeField] private Color m_leaderIndicatorColor = Color.red;
+        [SerializeField] private Color m_defaultIndicatorColor = Color.white;
         private GameObject m_currentPlayerIndicator;
         public static GameObject PlayerIndicatorPrefab { get { return m_instance.m_playerIndicatorPrefab; } }
         public static void UpdatePlayerIndicator(CharController parent, float yOffset, bool display = true)
@@ -212,6 +246,11 @@ namespace LD43
 
             if (parent)
             {
+                SpriteRenderer rend = m_instance.m_currentPlayerIndicator.GetComponent<SpriteRenderer>();
+                if (rend)
+                    rend.color = parent.PlayerType == PlayerTypesFlag.Leader ? m_instance.m_leaderIndicatorColor : m_instance.m_defaultIndicatorColor;
+                m_instance.m_currentPlayerIndicator.transform.localScale = parent.PlayerType == PlayerTypesFlag.Leader ? m_instance.m_leaderIndicatorScale : new Vector3(1f, 1f, 1f);
+
                 m_instance.m_currentPlayerIndicator.transform.parent = parent.OverlayPosition.transform;
                 m_instance.m_currentPlayerIndicator.transform.localPosition = m_instance.m_playerIndicatorOffset;
                 m_instance.m_currentPlayerIndicator.transform.rotation = Quaternion.identity;

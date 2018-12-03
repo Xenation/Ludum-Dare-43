@@ -9,10 +9,11 @@ namespace LD43
         [SerializeField] private AudioSource m_unpressSound;
 
         private int m_pressedTime = 0;
+        private bool m_isPressed = false;
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.gameObject.GetComponent<CharController>() || collision.gameObject.layer == LayerMask.NameToLayer("Movable"))
+            if ((collision.gameObject.GetComponent<CharController>() || collision.gameObject.layer == LayerMask.NameToLayer("Movable")) && !m_isPressed)
             {
                 m_pressedTime++;
                 if (m_unpressSound && m_unpressSound.isPlaying)
@@ -23,12 +24,14 @@ namespace LD43
 
                 if (m_activable)
                     m_activable.Activate();
+
+                m_isPressed = true;
             }
         }
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            if (collision.gameObject.GetComponent<CharController>() || collision.gameObject.layer == LayerMask.NameToLayer("Movable"))
+            if ((collision.gameObject.GetComponent<CharController>() || collision.gameObject.layer == LayerMask.NameToLayer("Movable")) && m_isPressed)
             {
                 m_pressedTime--;
                 if (m_pressSound && m_pressSound.isPlaying)
@@ -39,6 +42,8 @@ namespace LD43
 
                 if (m_pressedTime <= 0 && m_activable)
                     m_activable.Desactivate();
+
+                m_isPressed = false;
             }
         }
 

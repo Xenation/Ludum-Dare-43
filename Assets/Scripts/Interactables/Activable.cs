@@ -25,14 +25,15 @@ namespace LD43
         [SerializeField] private float m_animCloseDelaySeconds = 0.5f;
 
         [Header("Sound")]
-        [SerializeField] private AudioSource m_activateSound;
+        [SerializeField] protected AudioSource m_activateSound;
         [SerializeField] private AudioSource m_desactivateSound;
 
         private bool m_isMoving = false;
         private float m_currentLerpRatio = 0.0f;
         private ActivableState m_state = ActivableState.Closed;
 
-        public void Activate()
+
+        public virtual void Activate()
         {
             if (m_state > ActivableState.Openning)
             {
@@ -46,7 +47,7 @@ namespace LD43
 
         }
 
-        public void Desactivate()
+        public virtual void Desactivate()
         {
             if (m_state < ActivableState.Closed)
             {

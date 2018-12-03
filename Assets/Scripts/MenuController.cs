@@ -82,7 +82,7 @@ namespace LD43
                 m_lastInput = LastInput.Nothing;
             }
 
-            if (Input.GetButtonDown("Submit"))
+            if (Input.GetButtonDown("Submit") && !m_isExecuting)
             {
                 if (m_validateButtonSound)
                     m_validateButtonSound.Play();
