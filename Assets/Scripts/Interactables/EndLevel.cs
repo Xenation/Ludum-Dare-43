@@ -96,7 +96,7 @@ namespace LD43
                     }
                     if (Input.GetButtonDown("Submit") && leaderSaved && !m_isGoinNext)
                     {
-                        print("foo 2");
+                        //print("foo 2");
                         m_isGoinNext = true;
                         GameManager.NextLevel();
                     }

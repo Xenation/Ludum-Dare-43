@@ -99,7 +99,7 @@ namespace LD43
 
         public static void NextLevel(int nextLevelIndex = -1)
         {
-            print("foo3");
+            //print("foo3");
             UpdatePlayerIndicator(null, 0f, false);
             int lastIndex = m_instance.m_currentIndexScene;
 
@@ -126,6 +126,7 @@ namespace LD43
             }
             else if (m_instance.m_currentIndexScene == 1)
             {
+                m_instance.m_playerTypesToSpawn = (PlayerTypesFlag)31;
                 if (!m_instance.m_gameMusicRunning && lastIndex == 0)
                 {
                     if (m_instance.m_menuMusic)
