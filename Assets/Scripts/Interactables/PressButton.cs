@@ -17,7 +17,11 @@ namespace LD43
             {
                 if (!m_isPressed)
                 {
-                    if (m_activable && m_pressedTime == 0)
+					BoxCollider2D col = GetComponent<BoxCollider2D>();
+					Vector3 colCenter = transform.TransformPoint(col.offset);
+					transform.position = transform.position + Vector3.down * 0.1f;
+					col.offset = transform.InverseTransformPoint(col.bounds.center);
+					if (m_activable && m_pressedTime == 0)
                     {
                     if (m_unpressSound && m_unpressSound.isPlaying)
                         m_unpressSound.Stop();
@@ -38,7 +42,11 @@ namespace LD43
         {
             if ((collision.gameObject.GetComponent<CharController>() || collision.gameObject.layer == LayerMask.NameToLayer("Movable")))
             {
-                if (m_isPressed)
+				BoxCollider2D col = GetComponent<BoxCollider2D>();
+				Vector3 colCenter = transform.TransformPoint(col.offset);
+				transform.position = transform.position + Vector3.up * 0.1f;
+				col.offset = transform.InverseTransformPoint(col.bounds.center);
+				if (m_isPressed)
                 {
                     if (m_pressedTime <= 1 && m_activable)
                     {
