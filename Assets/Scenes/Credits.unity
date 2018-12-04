@@ -1240,7 +1240,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: '
 
-    Eva Abollivier'
+    Eva ABOLLIVIER'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 56a6376d5f3ff4a43bf4128fc2ccb9cd, type: 2}
   m_sharedMaterial: {fileID: 21169363490151728, guid: 56a6376d5f3ff4a43bf4128fc2ccb9cd,
