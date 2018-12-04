@@ -4202,7 +4202,7 @@ MonoBehaviour:
     Character: 16
   m_bubblePrefab: {fileID: 1547387037418042, guid: 93207374662b2694da812b43341a53e7,
     type: 2}
-  m_bubbleOffset: {x: 2.25, y: 1, z: -0.5}
+  m_bubbleOffset: {x: 2.25, y: 1, z: -0.65}
   m_timeBetweenLetters: 0.04
   m_soundChangeDialog: {fileID: 1641996220}
   m_soundDialog: {fileID: 1641996221}

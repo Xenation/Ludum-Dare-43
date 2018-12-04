@@ -111,7 +111,8 @@ namespace LD43
         }
         IEnumerator FadePerso(GameObject target, float fadeTime = 0.5f)
         {
-            float current = 0.0f;
+			target.GetComponent<Animator>().SetTrigger("turnBack");
+			float current = 0.0f;
             float start = 1f;
             float end = 0f;
 
