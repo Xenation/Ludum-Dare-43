@@ -79,7 +79,7 @@ namespace LD43
                             leaderSaved = true;
                             GameManager.DisplayLeaderSaved();
                         }
-
+						
                         StartCoroutine(FadePerso(currentController.gameObject, 1.0f));
 
                         if (m_endLevelSource)
@@ -112,6 +112,7 @@ namespace LD43
         IEnumerator FadePerso(GameObject target, float fadeTime = 0.5f)
         {
 			target.GetComponent<Animator>().SetTrigger("turnBack");
+			transform.parent.GetComponent<Animator>().SetTrigger("open");
 			float current = 0.0f;
             float start = 1f;
             float end = 0f;
